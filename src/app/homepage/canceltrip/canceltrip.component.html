@@ -1,0 +1,154 @@
+<ion-content>
+<div [ngClass]="(cancelled)?'after_cancel':'before_cancel'">
+
+</div>
+<div class="container negative_margin">
+  <div class="row no-gutters">
+    <div class="col-12 mb-3">
+      <span class="text-bold text-white header_text" *ngIf="!cancelled">Edit your booking</span>
+      <span class="text-bold text-white header_text" *ngIf="cancelled">Your booking has been cancelled</span>
+    </div>
+    <div class="col-md-9 pr_2 mb-2">
+      <div class="col-12 bg-white crd_style p-0">
+        <div class="bg-white fixed_height mx-2">
+          <div class="row no-gutters h-100">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 py-2 pr-sm-2 h-100">
+                <img src="{{selectedPackage.packageValues.mainImage}}"
+                  onerror="this.src='../../../../assets/images/Group 67292.png'" class="h_100 w-100"/>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12 pl_0">
+              <div class="mt-2">
+                <ion-label color="tertiary" class="font-weight-bold">
+                  {{selectedPackage.packageValues.cityName}},({{selectedPackage.packageValues.name}})
+                </ion-label>
+                <p>
+                  <ion-note color="medium">
+                    <img width="16px" height="16px" src="../../../../assets/images/Artwork 1.svg" />
+                    {{selectedPackage.packageValues.countryName}}
+                  </ion-note>
+                </p>
+                <div>
+                  <div class="row pl-3 mb-3">
+                    <div class="midle-div-size">
+                      <img class="w-100 h-100 bdr_radius" src="{{selectedPackage.packageValues.additionalImages[0]}}"
+                        onerror="this.src='../../../../assets/images/Group 67292.png'" />
+                    </div>
+                    <div class="midle-div-size ml-2">
+                      <img class="w-100 h-100 bdr_radius" src="{{selectedPackage.packageValues.additionalImages[1]}}"
+                        onerror="this.src='../../../../assets/images/Group 67292.png'" />
+                    </div>
+                    <div class="midle-div-size ml-2">
+                      <img class="w-100 h-100 bdr_radius" src="{{selectedPackage.packageValues.additionalImages[2]}}"
+                        onerror="this.src='../../../../assets/images/Group 67292.png'" />
+                    </div>
+                    <div class="midle-div-size ml-2">
+                      <img class="w-100 h-100 bdr_radius" src="{{selectedPackage.packageValues.additionalImages[3]}}"
+                        onerror="this.src='../../../../assets/images/Group 67292.png'" />
+                    </div>
+                  </div>
+                  <ion-note color="medium" class="mr-3">{{noOfAdults}} adults</ion-note>
+                  <ion-note color="medium">
+                    {{refundDetails.travelStartDate| date: 'EEE,dd LLL yyyy'}}
+                  </ion-note>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-12 bg-white crd_style p-0 mt-2" *ngIf="cancelled">
+        <span class="card_header txt_clr_primary d-block p_custom">Refund Timeline(s)</span>
+        <span class="amt txt_clr_primary d-block p-2">You cancelled {{selectedPackage.packageValues.cityName}},({{selectedPackage.packageValues.name}}) Trip.</span>
+        <span class="amt txt_clr_primary d-block p-2">Refund process of {{refundDetails.refundAmount| currency:"₹ ": false : '2.0-0'}} is initiated.</span>
+      </div>
+      <div class="col-12 bg-white crd_style p-0 mt-2">
+        <span class="card_header txt_clr_primary d-block p_custom">Primary Contact<span class="amt txt_clr_primary d-block">We will contact you on this number. You can email or whatsapp the ticket to other contacts.</span></span>
+
+        <div class="border-line">
+          <div class="row no-gutters py-4 px-3">
+            <div class="col-4 text-left amt txt_clr_primary txt_clr_primary text-capitalize">
+              {{primaryContact?.firstName}}
+            </div>
+            <div class="col-4 text-left amt txt_clr_primary">
+              {{primaryContact?.email}}
+            </div>
+            <div class="col-4 text-left amt txt_clr_primary">
+              {{primaryContact?.mobileNo}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 ">
+      <div class="bg-white crd_style">
+        <span class="card_header txt_clr_primary d-inline-block p_custom">Price Breakup</span>
+        <div class="d-flex border-line">
+          <div class="flex-grow-1">
+            <span class="total_amt txt_clr_primary p_custom d-inline-block">Total Paid </span>
+          </div>
+          <div class="text-right">
+            <span class="total_amt txt_clr_primary p_custom  d-inline-block">{{selectedBooking.basePackagePrice| currency:"₹ ": false :'2.0-0'}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white crd_style mt-2">
+        <span class="card_header txt_clr_primary d-inline-block p_custom">Refund Breakup</span>
+        <div class="d-flex border-line">
+          <div class="flex-grow-1">
+            <span class="amt txt_clr_primary p_custom d-inline-block">Coupon</span>
+          </div>
+          <div class="text-right">
+            <span class="amt txt_clr_primary p_custom  d-inline-block">- {{couponReducedAmount| currency:"₹ ": false :'2.0-0'}}</span>
+          </div>
+        </div>
+        <div class="d-flex border-line py-1">
+          <div class="flex-grow-1">
+            <span class="total_amt txt_clr_primary p_custom d-inline-block">Total Refund</span>
+          </div>
+          <div class="text-right">
+            <span class="total_amt txt_clr_primary p_custom  d-inline-block">{{refundDetails.refundAmount| currency:"₹ ": false :'2.0-0'}}</span>
+          </div>
+        </div>
+      </div>
+      <button class="btn w-100 cancel_btn my-2" data-toggle="modal" data-target="#cancelconform" *ngIf="!cancelled">Cancel Booking</button>
+      <button class="btn w-100 cancel_btn my-2" *ngIf="cancelled" (click)="goToMyBookings()">My Bookings</button>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade modal_background" id="cancelconform" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header border-0 pb-0">
+        <span class="  modal_text_header txt_clr_primary">Cancel My {{selectedPackage.packageValues.cityName}} Trip</span>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body pl-3 py-0 txt_clr_primary">
+        Are you sure to cancel your {{selectedPackage.packageValues.cityName}} Trip?
+      </div>
+      <div class="modal-footer border-0">
+        <button type="button" class="btn yes_btn " data-dismiss="modal"  (click)="cancelBooking()">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div *ngIf="modalDisplay">
+  <div class="blur-box spinner_overlay"></div>
+  <div class="center_image">
+    <div class="card pay_center" style="width: 18rem">
+      <div style="border-radius: 10px">
+        <div class="fail_trip_color">
+          <div class="modal-body fail_trip_head" *ngIf="validationModal">
+            <h3 class="fail_trip_font1">Validating your bookings</h3>
+            <p>Please do not Refresh the page/click Back button</p>
+            <img src="../../../assets/images/loader.gif" class="failtrip_link" />
+          </div>
+        </div>
+      </div>
+     </div>
+   </div>
+ </div>
+</ion-content>

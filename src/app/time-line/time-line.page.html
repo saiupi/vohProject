@@ -1,0 +1,134 @@
+<app-sharenav></app-sharenav>
+<ion-menu side="start" menuId="first" contentId="main" class="menu_width">
+  <ion-header class="bg-white">
+    <ion-toolbar color="grey">
+      <ion-title>
+        <ion-icon size="large" class="" name="person-circle-outline"></ion-icon>
+        Profile &emsp;
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="bg-white">
+    <ul class="menu_ul">
+      <li class="d-block text-dark" [ngClass]="(leftnav[0])?'active':''" (click)="leftnavclick(0)">
+        Timeline
+      </li>
+      <li class="d-block text-dark" [ngClass]="(leftnav[1])?'active':''" (click)="leftnavclick(1)">
+        Daily Plan
+      </li>
+      <li class="d-block text-dark" [ngClass]="(leftnav[2])?'active':''" (click)="leftnavclick(2)">
+        Flights
+      </li>
+      <li class="d-block text-dark" [ngClass]="(leftnav[3])?'active':''" (click)="leftnavclick(3)">
+        Stays
+      </li>
+      <!-- <li
+        class="d-block text-dark"
+        [ngClass]="(leftnav[4])?'active':''"
+        (click)="leftnavclick(4)"
+      >
+        transfers-tab
+      </li> -->
+      <li class="d-block text-dark" [ngClass]="(leftnav[5])?'active':''" (click)="leftnavclick(5)">
+        Activities
+      </li>
+      <li class="d-block text-dark" [routerLink]="['/preview']">
+        Preview Itinerary
+      </li>
+    </ul>
+  </ion-content>
+</ion-menu>
+<ion-content class="container-fluid position-relative">
+  <div>
+    <span class="navbarBrand" (click)="openFirst()">&#9776;</span>
+    <img src="../../assets/images/logo.svg" class="logo_top_mbl mb-1" (click)="gotohome()" />
+    <button data-amplify-analytics-on='click'
+    data-amplify-analytics-name='TimeLineBookNow' data-amplify-analytics-attrs='timeline' type="button"
+      class="btn sm_book_now sm_btn-sty ml-auto" [ngClass]="bookNowFlag?'enable':''" (click)="routeToPreview()">Book Now</button>
+  </div>
+  <!-- <div  *ngFor="let i of BookNow1; let p = index">
+    <div *ngIf="(i.flightDetails?.sequenceNumber && i.activityDetails.length>0)||(i.hotelDetails?.hotelContent?.hotelId) ||(i.flightDetails?.sequenceNumber && i.activityDetails.length>0 && i.hotelDetails?.hotelContent?.hotelId) || (i.activityDetails.length>0 && i.hotelDetails?.hotelContent?.hotelId)">
+      <button type="button" class="btn sm_book_now1 ml-auto" [routerLink]="['/preview']">Book Now</button>
+    </div>
+  </div> -->
+  <!-- <h1>GFVJA</h1> -->
+  <ion-grid class="container-fluid mt-57 bg-dark tm_grid_ht">
+    <ion-row class="row" style="margin-top: -41px;">
+      <ion-col class="col-lg-6 col-md-12 col-sm-12 p-0 tm_bg_clr">
+        <ul class="mb-0 bdr_btm_blk timelineprocess_nav">
+          <li class="mr-3 d-inline text-dark pt-2" [ngClass]="(leftnav[0])?'active':''" (click)="leftnavclick(0)">
+            Timeline
+          </li>
+          <li class="mr-3 d-inline text-dark pt-2" [ngClass]="(leftnav[1])?'active':''" (click)="leftnavclick(1)">
+            Daily Plan
+          </li>
+          <li class="mr-3 d-inline text-dark pt-2" [ngClass]="(leftnav[2])?'active':''" (click)="leftnavclick(2)">
+            Flights
+          </li>
+          <li class="mr-3 d-inline text-dark pt-2" [ngClass]="(leftnav[3])?'active':''" (click)="leftnavclick(3)">
+            Stays
+          </li>
+          <li class="mr-3 d-inline text-dark pt-2" [ngClass]="(leftnav[5])?'active':''" (click)="leftnavclick(5)">
+            Activities
+          </li>
+          <button data-amplify-analytics-on='click'
+          data-amplify-analytics-name='TimeLineBookNow' data-amplify-analytics-attrs='timeline' type="button" class="btn book_now ml-auto btn-sty" [ngClass]="bookNowFlag?'enable':''"
+            (click)="routeToPreview()">Book Now</button>
+          <!-- <div  *ngFor="let i of BookNow1; let p = index">
+            <div *ngIf="(i.flightDetails?.sequenceNumber && i.activityDetails.length>0)||(i.hotelDetails?.hotelContent?.hotelId) ||(i.flightDetails?.sequenceNumber && i.activityDetails.length>0 && i.hotelDetails?.hotelContent?.hotelId) || (i.activityDetails.length>0 && i.hotelDetails?.hotelContent?.hotelId)">
+              <button type="button" class="btn book_now2 ml-auto" [routerLink]="['/preview']">Book Now</button>
+            </div>
+          </div> -->
+
+        </ul>
+        <div class="tab-content" id="main">
+          <div *ngIf="leftnav[0]" class="left_scroll">
+            <app-timeline-process></app-timeline-process>
+          </div>
+          <div *ngIf="leftnav[1]" class="left_scroll">
+            <app-daily-plan></app-daily-plan>
+          </div>
+          <div *ngIf="leftnav[2]" class="left_scroll">
+            <app-flights></app-flights>
+          </div>
+          <div *ngIf="leftnav[3]" class="left_scroll">
+            <app-stays></app-stays>
+          </div>
+          <!-- <div *ngIf="leftnav[4]" class="left_scroll">
+            <app-transfers></app-transfers>
+          </div> -->
+          <div *ngIf="leftnav[5]" class="left_scroll">
+            <app-activities></app-activities>
+          </div>
+        </div>
+      </ion-col>
+      <!-- [hidden]="!(visableStatus=='Activities')" -->
+      <ion-col *ngIf="visableStatus=='Activities'" class="col-12 col-lg-6 p-0 act_process_pos flt_bk_scroll">
+        <app-activity-process></app-activity-process>
+      </ion-col>
+      <ion-col *ngIf="visableStatus=='hotelTab'" class="col-12 col-lg-6 p-0 act_process_pos flt_bk_scroll">
+        <!-- added Hotel Component here .........!! -->
+        <app-hotels></app-hotels>
+      </ion-col>
+      <ion-col *ngIf="visableStatus=='ActivitiesPref'" class="col-12 col-lg-6 p-0 act_process_pos flt_bk_scroll">
+        <app-activity-process></app-activity-process>
+      </ion-col>
+      <ion-col *ngIf="visableStatus=='hotelTabPref'" class="col-12 col-lg-6 p-0 act_process_pos flt_bk_scroll">
+        <app-activity-process></app-activity-process>
+      </ion-col>
+
+      <!-- <ion-col  class="col-md-6 p-0 tme-lne-rt-display"><br/> -->
+      <!-- voyageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee -->
+
+      <ion-col *ngIf="visableStatus==''"
+        class="col-12 col-sm-4 col-xs-12 col-md-12 col-lg-6 col-xl-6 right_col tme-lne-rt-display">
+        <app-voyage></app-voyage>
+      </ion-col>
+
+      <!-- Journeyyyyyyyyyyyyyyyyyyyyyyyyy -->
+      <ion-col [hidden]="!(visableStatus==='Journey')" class="col-12 col-lg-6 flt_bk_scroll flt_bk_pos p-0">
+        <app-flights-booking></app-flights-booking>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

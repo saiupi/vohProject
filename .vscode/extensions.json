@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "Mikael.Angular-BeastCode",
+    "fivethree.vscode-ionic-snippets",
+    "eamodio.gitlens",
+    "EditorConfig.EditorConfig",
+    "steoates.autoimport",
+    "Angular.ng-template",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint"
+  ]
+}

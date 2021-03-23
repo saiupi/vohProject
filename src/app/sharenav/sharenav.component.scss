@@ -1,0 +1,49 @@
+agm-map {
+  height: 600px;
+}
+
+.previewtext {
+  color: #000000;
+  font-weight: bolder;
+  text-decoration: none;
+}
+.logo_top {
+  height: 40px;
+  margin-left: 5%;
+  cursor: pointer;
+}
+.logo_top2 {
+  height: 40px;
+  margin-left: 5.8%;
+  cursor: pointer;
+}
+.sticky_nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.itenary_main_nav {
+  box-shadow: 0px 3px 6px #00000029;
+}
+@media (min-width: 991px) {
+  .navbarBrand {
+    display: none;
+  }
+  .form-inline2 {
+    display: none;
+  }
+}
+@media (max-width: 990px) {
+  // .logo_top {display: none; }
+  .form-inline {
+    display: none;
+  }
+  .logo_top2 {
+    margin-left: 0%;
+  }
+  @media only screen and (max-width: 600px) {
+    .mobile-hide{
+      display: none;
+    }
+  }
+}

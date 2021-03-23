@@ -1,0 +1,872 @@
+<ion-grid>
+  <ion-row>
+    <ion-col
+      size="12"
+      class="mt-3"
+      *ngFor="let i of flightStatus; let p = index"
+    >
+      <div class="m-0 summary_pad">
+        <ion-card class="cardstyle z-index-2 bg-white container-fluid d-block">
+          <div class="row">
+            <div class="col-3 col-sm-2 locationIcon text-center">
+              <span class="day">Day</span>
+              <h3 class="dayNum">{{ p + 1 }}</h3>
+            </div>
+            <div class="col-9 col-sm-10 pr-0 pl-2 pt-0 pb-0 position-relative">
+              <ion-row>
+                <ion-col class="card-text d-block" size="12" size-sm>
+                  {{ i.flightData.cityName }},&nbsp;{{
+                    i.flightData.countryName
+                  }}
+                </ion-col>
+                <!-- <ion-col size="auto" class="m_7 font-weight-bold text-dark">
+                  09:00am
+                </ion-col> -->
+                <ion-col size="auto" class="tm_card_date m_7_3">
+                  <ion-text class="card_date">
+                    {{ i?.flightData?.date?.start | date: 'MMM dd' }} -
+                    {{ i?.flightData?.date?.end | date: 'MMM dd' }}
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+            </div>
+          </div>
+          <div *ngIf="i.flightData?.flightDetails?.journeyType">
+            <div
+              class="chevron_div text-dark"
+              data-toggle="collapse"
+              [attr.data-target]="'#maincollapse-' + p"
+            >
+              <ion-icon
+                name="chevron-up-outline"
+                class="main_chiv_symbol cursor-pointer"
+              ></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </div>
+
+      <ion-grid
+        *ngIf="i.flightData?.flightDetails?.journeyType"
+        [attr.id]="'maincollapse-' + p"
+        class="collapse show"
+      >
+        <ion-row>
+          <ion-col class="fl_card_line position-relative">
+            <div class="flt_icon">
+              <img src="../../../assets/images/Artwork 6.svg" />
+            </div>
+            <ion-card class="bg-white text-dark flt_card lg_dsplay">
+              <ion-grid class="container-fluid">
+                <ion-row class="row">
+                  <ion-col class="d-flex col-12 mb-2" size="12">
+                    <div class="d-inline">
+                      <img
+                        *ngFor="
+                          let image of i.flightData.flightDetails.flightSegments
+                            | airlinesImage
+                        "
+                        src="{{ image }}"
+                        class="img-fluid pr-2"
+                      />
+                      <ion-text
+                        class="text-dark pr-2 airline_name position-relative"
+                        *ngFor="
+                          let name of i.flightData.flightDetails.flightSegments
+                            | airlinesName
+                        "
+                        >{{ name }}
+                      </ion-text>
+                    </div>
+                  </ion-col>
+                  <ion-col class="col-md-4 col-6 mb_sm">
+                    <ion-text class="d-block frm_to"
+                      >{{
+                        i.flightData.flightDetails.flightSegments[0]
+                          .departureAirportLocationCode
+                      }}
+                      {{
+                        i.flightData.flightDetails.flightSegments[0].airlineInfo
+                          .departureCity
+                      }}</ion-text
+                    >
+                    <ion-text class="d-block time">{{
+                      i.flightData.flightDetails.flightSegments[0]
+                        .departureDateTime | slice: 11:16
+                    }}</ion-text>
+                  </ion-col>
+                  <ion-col class="col-md-3 col-6">
+                    <ion-text class="d-block text-center frm_to"
+                      ><ion-icon name="timer-outline"></ion-icon
+                    ></ion-text>
+                    <ion-text class="d-block text-center time">{{
+                      i.flightData.flightDetails | totalDuration | durationPipe
+                    }}</ion-text>
+                  </ion-col>
+                  <ion-col class="col-md-5 col-6 mb_sm">
+                    <ion-text class="d-block frm_to"
+                      >{{
+                        i.flightData.flightDetails.flightSegments[
+                          i.flightData.flightDetails.flightSegments.length - 1
+                        ].arrivalAirportLocationCode
+                      }}
+                      {{
+                        i.flightData.flightDetails.flightSegments[
+                          i.flightData.flightDetails.flightSegments.length - 1
+                        ].airlineInfo.arrivalCity
+                      }}</ion-text
+                    >
+                    <ion-text class="d-block time">{{
+                      i.flightData.flightDetails.flightSegments[
+                        i.flightData.flightDetails.flightSegments.length - 1
+                      ].arrivalDateTime | slice: 11:16
+                    }}</ion-text>
+                  </ion-col>
+                  <ion-col size="12" class="pl-3 mt-2 mb-2">
+                    <ion-text
+                      class="fnt_sze_13 position-relative stops mr-3"
+                      *ngFor="
+                        let s of i.flightData.flightDetails.flightSegments
+                      "
+                      >{{ s.departureAirportLocationCode }}</ion-text
+                    >
+                    <ion-text class="fnt_sze_13 position-relative mr-3">{{
+                      i.flightData.flightDetails.flightSegments[
+                        i.flightData.flightDetails.flightSegments.length - 1
+                      ].arrivalAirportLocationCode
+                    }}</ion-text>
+                    <ion-text class="fnt_sze_13 pl-5"
+                      >{{
+                        i.flightData.flightDetails.flightSegments.length - 1
+                      }}
+                      stop(s)</ion-text
+                    >
+                    <ion-text
+                      class="flt_dtls cursor-pointer collapsed"
+                      data-toggle="collapse"
+                      [attr.data-target]="'#collapse-' + p"
+                      >Flight Details
+                      <ion-text class="position-relative">
+                        <ion-icon name="chevron-up-outline" class="chiv_symbol">
+                        </ion-icon> </ion-text
+                    ></ion-text>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+
+              <div
+                class="no-gutters connecting_flights collapse"
+                [attr.id]="'collapse-' + p"
+              >
+                <div class="pb-3">
+                  <ion-grid
+                    class="container-fluid pt-3"
+                    *ngFor="
+                      let f of i.flightData.flightDetails.flightSegments;
+                      let flightsegment_index = index
+                    "
+                  >
+                    <ion-row class="row">
+                      <ion-col class="d-flex col-12 mb-3" size="12">
+                        <div class="d-inline aero_name">
+                          <img
+                            src="{{ f.airlineInfo.logoURL }}"
+                            class="img-fluid"
+                          />
+                          <ion-text class="text-dark pl-2">{{
+                            f.airlineInfo.name
+                          }}</ion-text>
+                        </div>
+                      </ion-col>
+                      <ion-col class="col-md-4 col-6 mb_sm">
+                        <ion-text class="d-block frm_to"
+                          >{{ f.departureAirportLocationCode }}
+                          {{ f.departureDateTime | date: 'HH:mm' }}</ion-text
+                        >
+                        <ion-text class="d-block time">{{
+                          f.departureDateTime | date: 'EEE,dd LLL yyyy'
+                        }}</ion-text>
+                      </ion-col>
+                      <ion-col class="col-md-3 col-6">
+                        <ion-text class="d-block text-center frm_to"
+                          ><ion-icon name="timer-outline"></ion-icon
+                        ></ion-text>
+                        <ion-text class="d-block text-center time">{{
+                          f.journeyDuration | toNumber | durationPipe
+                        }}</ion-text>
+                      </ion-col>
+                      <ion-col class="col-md-5 col-6 mb_sm">
+                        <ion-text class="d-block frm_to"
+                          >{{ f.arrivalAirportLocationCode }}
+                          {{ f.arrivalDateTime | date: 'HH:mm' }}</ion-text
+                        >
+                        <ion-text class="d-block time">{{
+                          f.arrivalDateTime | date: 'EEE,dd LLL yyyy'
+                        }}</ion-text>
+                      </ion-col>
+                    </ion-row>
+                    <div
+                      class="text-center short_layover_div position-relative"
+                      *ngIf="
+                        flightsegment_index !=
+                        i.flightData.flightDetails.flightSegments.length - 1
+                      "
+                    >
+                      <ion-text class="text-dark short_layover_text"
+                        >Layover
+                        {{
+                          diff(
+                            f.arrivalDateTime,
+                            i.flightData.flightDetails.flightSegments[
+                              flightsegment_index + 1
+                            ]?.departureDateTime
+                          )
+                        }}</ion-text
+                      >
+                    </div>
+                  </ion-grid>
+                </div>
+              </div>
+            </ion-card>
+
+            <ion-card
+              class="bg-white text-dark mb-2 ml-2 mr-2 flt_card sm_dsplay"
+            >
+              <ion-grid class="container-fluid">
+                <ion-row class="row p-2">
+                  <ion-col class="d-flex col-12 mb-2 p-0" size="12">
+                    <div class="d-inline aero_name">
+                      <img
+                        *ngFor="
+                          let image of i.flightData.flightDetails.flightSegments
+                            | airlinesImage
+                        "
+                        src="{{ image }}"
+                        class="img-fluid pr-2"
+                      />
+                      <ion-text
+                        class="text-dark pr-2 airline_name position-relative"
+                        *ngFor="
+                          let name of i.flightData.flightDetails.flightSegments
+                            | airlinesName
+                        "
+                        >{{ name }}
+                      </ion-text>
+                    </div>
+                  </ion-col>
+                  <ion-col size="6">
+                    <ion-text class="d-block frm_to"
+                      >{{
+                        i.flightData.flightDetails.flightSegments[0]
+                          .departureAirportLocationCode
+                      }}
+                      {{
+                        i.flightData.flightDetails.flightSegments[0].airlineInfo
+                          .departureCity
+                      }}</ion-text
+                    >
+                  </ion-col>
+                  <ion-col size="6" class="text-right">
+                    <ion-text class="d-block frm_to"
+                      >{{
+                        i.flightData.flightDetails.flightSegments[
+                          i.flightData.flightDetails.flightSegments.length - 1
+                        ].arrivalAirportLocationCode
+                      }}
+                      {{
+                        i.flightData.flightDetails.flightSegments[
+                          i.flightData.flightDetails.flightSegments.length - 1
+                        ].airlineInfo.arrivalCity
+                      }}</ion-text
+                    >
+                  </ion-col>
+                  <ion-col class="d-flex" size="12">
+                    <div>
+                      <ion-text class="d-inine time">{{
+                        i.flightData.flightDetails.flightSegments[0]
+                          .departureDateTime | slice: 11:16
+                      }}</ion-text>
+                    </div>
+                    <div class="flex-grow-1 text-center position-relative z_0">
+                      <ion-text
+                        class="d-inline time pr-1 frm_to lft_lne bg-white z_2"
+                        ><ion-icon name="timer-outline"></ion-icon
+                      ></ion-text>
+                      <ion-text
+                        class="d-inline time rt_lne bg-white pr-1 z_2"
+                        >{{
+                          i.flightData.flightDetails
+                            | totalDuration
+                            | durationPipe
+                        }}</ion-text
+                      >
+                    </div>
+                    <div>
+                      <ion-text class="d-block time">{{
+                        i.flightData.flightDetails.flightSegments[
+                          i.flightData.flightDetails.flightSegments.length - 1
+                        ].arrivalDateTime | slice: 11:16
+                      }}</ion-text>
+                    </div>
+                  </ion-col>
+                  <ion-col size="12" class="mt-2">
+                    <ion-text
+                      class="fnt_sze_13 position-relative stops mr-3"
+                      *ngFor="
+                        let s of i.flightData.flightDetails.flightSegments
+                      "
+                      >{{ s.departureAirportLocationCode }}</ion-text
+                    >
+                    <ion-text class="fnt_sze_13 position-relative mr-3">{{
+                      i.flightData.flightDetails.flightSegments[
+                        i.flightData.flightDetails.flightSegments.length - 1
+                      ].arrivalAirportLocationCode
+                    }}</ion-text>
+                    <ion-text class="fnt_sze_13 pl-5"
+                      >{{
+                        i.flightData.flightDetails.flightSegments.length - 1
+                      }}
+                      stop(s)</ion-text
+                    >
+                    <ion-text
+                      class="flt_dtls cursor-pointer collapsed"
+                      data-toggle="collapse"
+                      [attr.data-target]="'#collapse-' + p"
+                      >Flight Details
+                      <ion-text class="position-relative"
+                        ><ion-icon
+                          name="chevron-up-outline"
+                          class="chiv_symbol"
+                        ></ion-icon></ion-text
+                    ></ion-text>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+              <div
+                class="no-gutters connecting_flights collapse"
+                [attr.id]="'collapse-' + p"
+              >
+                <div class="pb-3">
+                  <ion-grid
+                    class="container-fluid"
+                    *ngFor="
+                      let f of i.flightData.flightDetails.flightSegments;
+                      let flightsegment_index = index
+                    "
+                  >
+                    <ion-row class="row p-0">
+                      <ion-col class="d-flex col-12 mb-2 p-2" size="12">
+                        <div class="d-inline aero_name">
+                          <img
+                            src="{{ f.airlineInfo.logoURL }}"
+                            class="img-fluid"
+                          />
+                          <ion-text class="text-dark pl-2">{{
+                            f.airlineInfo.name
+                          }}</ion-text>
+                        </div>
+                      </ion-col>
+                      <ion-col size="6" class="pl-2">
+                        <ion-text class="d-block frm_to"
+                          >{{ f.departureAirportLocationCode }}
+                          {{ f.departureDateTime | date: 'HH:mm' }}</ion-text
+                        >
+                      </ion-col>
+                      <ion-col size="6" class="text-right pr-2">
+                        <ion-text class="d-block frm_to"
+                          >{{ f.arrivalAirportLocationCode }}
+                          {{ f.arrivalDateTime | date: 'HH:mm' }}</ion-text
+                        >
+                      </ion-col>
+                      <ion-col class="d-flex p-2" size="12">
+                        <div>
+                          <ion-text class="d-inine sm_time">{{
+                            f.departureDateTime | date: 'EEE,dd LLL yyyy'
+                          }}</ion-text>
+                        </div>
+                        <div
+                          class="flex-grow-1 text-center position-relative z_0"
+                        >
+                          <ion-text
+                            class="d-inline pr-1 frm_to sm_time lft_lne z_2 back_color3"
+                            ><ion-icon name="timer-outline"></ion-icon
+                          ></ion-text>
+                          <ion-text
+                            class="d-inline sm_time rt_lne pr-1 z_2 back_color3"
+                            >{{
+                              f.journeyDuration | toNumber | durationPipe
+                            }}</ion-text
+                          >
+                        </div>
+                        <div>
+                          <ion-text class="d-block sm_time text-right">{{
+                            f.arrivalDateTime | date: 'EEE,dd LLL yyyy'
+                          }}</ion-text>
+                        </div>
+                      </ion-col>
+                      <div
+                        class="col-12 text-center short_layover_div position-relative"
+                        *ngIf="
+                          flightsegment_index !=
+                          i.flightData.flightDetails.flightSegments.length - 1
+                        "
+                      >
+                        <ion-text class="text-dark short_layover_text"
+                          >Layover
+                          {{
+                            diff(
+                              f.arrivalDateTime,
+                              i.flightData.flightDetails.flightSegments[
+                                flightsegment_index + 1
+                              ]?.departureDateTime
+                            )
+                          }}</ion-text
+                        >
+                      </div>
+                    </ion-row>
+                  </ion-grid>
+                </div>
+              </div>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+      <!-- //////////////////////////////////////////////////// Return Flight//////////////////////////////////////////////////////////////////////////////////////-->
+    <ion-grid>
+      <ion-row>
+        <ion-col
+          size="12"
+          class="mt-3"
+          *ngFor="let r of returnFlight; let m = index"
+        >
+      <div class="m-0 summary_pad">
+      <ion-card  class="cardstyle  mt-3 z-index-2 bg-white container-fluid d-block">
+        <div class="row">
+          <div class="col-3 col-sm-2 locationIcon text-center">
+            <span class="day">Return</span>
+            <!-- <h3 class="dayNum">{{ p + 1 }}</h3> -->
+          </div>
+          <div class="col-9 col-sm-10 pr-0 pl-2 pt-0 pb-0 position-relative">
+            <ion-row>
+              <ion-col class="card-text d-block" size="12" size-sm>
+                {{ r.cityName }},&nbsp;{{
+                  r.countryName
+                }}
+              </ion-col>
+              <!-- <ion-col size="auto" class="m_7 font-weight-bold text-dark">
+                09:00am
+              </ion-col> -->
+              <ion-col size="auto" class="tm_card_date m_7_3">
+                <ion-text class="card_date">
+                  <!-- {{ i?.flightData?.date?.start | date: 'MMM dd' }} -
+                  {{ i?.flightData?.date?.end | date: 'MMM dd' }} -->
+                </ion-text>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+        <div *ngIf="r.flightDetails.journeyType">
+          <div
+            class="chevron_div text-dark"
+            data-toggle="collapse"
+            [attr.data-target]="'#maincollapse2-' + m"
+          >
+            <ion-icon
+              name="chevron-up-outline"
+              class="main_chiv_symbol cursor-pointer"
+            ></ion-icon>
+          </div>
+        </div>
+      </ion-card>
+      <ion-grid
+      *ngIf="r.flightDetails?.journeyType"
+      [attr.id]="'maincollapse2-' + m"
+      class="collapse show"
+    >
+      <ion-row>
+        <ion-col class="fl_card_line2 position-relative">
+          <div class="flt_icon2">
+            <img src="../../../assets/images/Artwork 6.svg" />
+          </div>
+          <ion-card class="bg-white text-dark flt_card2 lg_dsplay">
+            <ion-grid class="container-fluid">
+              <ion-row class="row">
+                <ion-col class="d-flex col-12 mb-2" size="12">
+                  <div class="d-inline">
+                    <img
+                      *ngFor="
+                        let image of r.flightDetails.flightSegments
+                          | airlinesImage
+                      "
+                      src="{{ image }}"
+                      class="img-fluid pr-2"
+                    />
+                    <ion-text
+                      class="text-dark pr-2 airline_name position-relative"
+                      *ngFor="
+                        let name of r.flightDetails.flightSegments
+                          | airlinesName
+                      "
+                      >{{ name }}
+                    </ion-text>
+                  </div>
+                </ion-col>
+                <ion-col class="col-md-4 col-6 mb_sm">
+                  <ion-text class="d-block frm_to"
+                    >{{
+                      r.flightDetails.flightSegments[0]
+                        .departureAirportLocationCode
+                    }}
+                    {{
+                      r.flightDetails.flightSegments[0].airlineInfo
+                        .departureCity
+                    }}</ion-text
+                  >
+                  <ion-text class="d-block time">{{
+                   r.flightDetails.flightSegments[0]
+                      .departureDateTime | slice: 11:16
+                  }}</ion-text>
+                </ion-col>
+                <ion-col class="col-md-3 col-6">
+                  <ion-text class="d-block text-center frm_to"
+                    ><ion-icon name="timer-outline"></ion-icon
+                  ></ion-text>
+                  <ion-text class="d-block text-center time">{{
+                    r.flightDetails | totalDuration | durationPipe
+                  }}</ion-text>
+                </ion-col>
+                <ion-col class="col-md-5 col-6 mb_sm">
+                  <ion-text class="d-block frm_to"
+                    >{{
+                      r.flightDetails.flightSegments[
+                        r.flightDetails.flightSegments.length - 1
+                      ].arrivalAirportLocationCode
+                    }}
+                    {{
+                      r.flightDetails.flightSegments[
+                        r.flightDetails.flightSegments.length - 1
+                      ].airlineInfo.arrivalCity
+                    }}</ion-text
+                  >
+                  <ion-text class="d-block time">{{
+                    r.flightDetails.flightSegments[
+                      r.flightDetails.flightSegments.length - 1
+                    ].arrivalDateTime | slice: 11:16
+                  }}</ion-text>
+                </ion-col>
+                <ion-col size="12" class="pl-3 mt-2 mb-2">
+                  <ion-text
+                    class="fnt_sze_13 position-relative stops mr-3"
+                    *ngFor="
+                      let s of r.flightDetails.flightSegments
+                    "
+                    >{{ s.departureAirportLocationCode }}</ion-text
+                  >
+                  <ion-text class="fnt_sze_13 position-relative mr-3">{{
+                    r.flightDetails.flightSegments[
+                      r.flightDetails.flightSegments.length - 1
+                    ].arrivalAirportLocationCode
+                  }}</ion-text>
+                  <ion-text class="fnt_sze_13 pl-5"
+                    >{{
+                      r.flightDetails.flightSegments.length - 1
+                    }}
+                    stop(s)</ion-text
+                  >
+                  <ion-text
+                    class="flt_dtls cursor-pointer collapsed"
+                    data-toggle="collapse"
+                    [attr.data-target]="'#collapse2-' + m"
+                    >Flight Details
+                    <ion-text class="position-relative">
+                      <ion-icon name="chevron-up-outline" class="chiv_symbol">
+                      </ion-icon> </ion-text
+                  ></ion-text>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+
+            <div
+              class="no-gutters connecting_flights collapse"
+              [attr.id]="'collapse2-' + m"
+            >
+              <div class="pb-3">
+                <ion-grid
+                  class="container-fluid pt-3"
+                  *ngFor="
+                    let f of r.flightDetails.flightSegments;
+                    let flightsegment_index = index
+                  "
+                >
+                  <ion-row class="row">
+                    <ion-col class="d-flex col-12 mb-3" size="12">
+                      <div class="d-inline aero_name">
+                        <img
+                          src="{{ f.airlineInfo.logoURL }}"
+                          class="img-fluid"
+                        />
+                        <ion-text class="text-dark pl-2">{{
+                          f.airlineInfo.name
+                        }}</ion-text>
+                      </div>
+                    </ion-col>
+                    <ion-col class="col-md-4 col-6 mb_sm">
+                      <ion-text class="d-block frm_to"
+                        >{{ f.departureAirportLocationCode }}
+                        {{ f.departureDateTime | date: 'HH:mm' }}</ion-text
+                      >
+                      <ion-text class="d-block time">{{
+                        f.departureDateTime | date: 'EEE,dd LLL yyyy'
+                      }}</ion-text>
+                    </ion-col>
+                    <ion-col class="col-md-3 col-6">
+                      <ion-text class="d-block text-center frm_to"
+                        ><ion-icon name="timer-outline"></ion-icon
+                      ></ion-text>
+                      <ion-text class="d-block text-center time">{{
+                        f.journeyDuration | toNumber | durationPipe
+                      }}</ion-text>
+                    </ion-col>
+                    <ion-col class="col-md-5 col-6 mb_sm">
+                      <ion-text class="d-block frm_to"
+                        >{{ f.arrivalAirportLocationCode }}
+                        {{ f.arrivalDateTime | date: 'HH:mm' }}</ion-text
+                      >
+                      <ion-text class="d-block time">{{
+                        f.arrivalDateTime | date: 'EEE,dd LLL yyyy'
+                      }}</ion-text>
+                    </ion-col>
+                  </ion-row>
+                  <div
+                    class="text-center short_layover_div position-relative"
+                    *ngIf="
+                      flightsegment_index !=
+                      r.flightDetails.flightSegments.length - 1
+                    "
+                  >
+                    <ion-text class="text-dark short_layover_text"
+                      >Layover
+                      {{
+                        diff(
+                          f.arrivalDateTime,
+                          r.flightDetails.flightSegments[
+                            flightsegment_index + 1
+                          ]?.departureDateTime
+                        )
+                      }}</ion-text
+                    >
+                  </div>
+                </ion-grid>
+              </div>
+            </div>
+          </ion-card>
+
+          <ion-card
+            class="bg-white text-dark mb-2 ml-2 mr-2 flt_card2 sm_dsplay"
+          >
+            <ion-grid class="container-fluid">
+              <ion-row class="row p-2">
+                <ion-col class="d-flex col-12 mb-2 p-0" size="12">
+                  <div class="d-inline aero_name">
+                    <img
+                      *ngFor="
+                        let image of r.flightDetails.flightSegments
+                          | airlinesImage
+                      "
+                      src="{{ image }}"
+                      class="img-fluid pr-2"
+                    />
+                    <ion-text
+                      class="text-dark pr-2 airline_name position-relative"
+                      *ngFor="
+                        let name of r.flightDetails.flightSegments
+                          | airlinesName
+                      "
+                      >{{ name }}
+                    </ion-text>
+                  </div>
+                </ion-col>
+                <ion-col size="6">
+                  <ion-text class="d-block frm_to"
+                    >{{
+                      r.flightDetails.flightSegments[0]
+                        .departureAirportLocationCode
+                    }}
+                    {{
+                      r.flightDetails.flightSegments[0].airlineInfo
+                        .departureCity
+                    }}</ion-text
+                  >
+                </ion-col>
+                <ion-col size="6" class="text-right">
+                  <ion-text class="d-block frm_to"
+                    >{{
+                      r.flightDetails.flightSegments[
+                        r.flightDetails.flightSegments.length - 1
+                      ].arrivalAirportLocationCode
+                    }}
+                    {{
+                      r.flightDetails.flightSegments[
+                        r.flightDetails.flightSegments.length - 1
+                      ].airlineInfo.arrivalCity
+                    }}</ion-text
+                  >
+                </ion-col>
+                <ion-col class="d-flex" size="12">
+                  <div>
+                    <ion-text class="d-inine time">{{
+                      r.flightDetails.flightSegments[0]
+                        .departureDateTime | slice: 11:16
+                    }}</ion-text>
+                  </div>
+                  <div class="flex-grow-1 text-center position-relative z_0">
+                    <ion-text
+                      class="d-inline time pr-1 frm_to lft_lne bg-white z_2"
+                      ><ion-icon name="timer-outline"></ion-icon
+                    ></ion-text>
+                    <ion-text
+                      class="d-inline time rt_lne bg-white pr-1 z_2"
+                      >{{
+                        r.flightDetails
+                          | totalDuration
+                          | durationPipe
+                      }}</ion-text
+                    >
+                  </div>
+                  <div>
+                    <ion-text class="d-block time">{{
+                      r.flightDetails.flightSegments[
+                        r.flightDetails.flightSegments.length - 1
+                      ].arrivalDateTime | slice: 11:16
+                    }}</ion-text>
+                  </div>
+                </ion-col>
+                <ion-col size="12" class="mt-2">
+                  <ion-text
+                    class="fnt_sze_13 position-relative stops mr-3"
+                    *ngFor="
+                      let s of r.flightDetails.flightSegments
+                    "
+                    >{{ s.departureAirportLocationCode }}</ion-text
+                  >
+                  <ion-text class="fnt_sze_13 position-relative mr-3">{{
+                   r.flightDetails.flightSegments[
+                      r.flightDetails.flightSegments.length - 1
+                    ].arrivalAirportLocationCode
+                  }}</ion-text>
+                  <ion-text class="fnt_sze_13 pl-5"
+                    >{{
+                      r.flightDetails.flightSegments.length - 1
+                    }}
+                    stop(s)</ion-text
+                  >
+                  <ion-text
+                    class="flt_dtls cursor-pointer collapsed"
+                    data-toggle="collapse"
+                    [attr.data-target]="'#collapse2-' + m"
+                    >Flight Details
+                    <ion-text class="position-relative"
+                      ><ion-icon
+                        name="chevron-up-outline"
+                        class="chiv_symbol"
+                      ></ion-icon></ion-text
+                  ></ion-text>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <div
+              class="no-gutters connecting_flights collapse"
+              [attr.id]="'collapse2-' + m"
+            >
+              <div class="pb-3">
+                <ion-grid
+                  class="container-fluid"
+                  *ngFor="
+                    let f of r.flightDetails.flightSegments;
+                    let flightsegment_index = index
+                  "
+                >
+                  <ion-row class="row p-0">
+                    <ion-col class="d-flex col-12 mb-2 p-2" size="12">
+                      <div class="d-inline aero_name">
+                        <img
+                          src="{{ f.airlineInfo.logoURL }}"
+                          class="img-fluid"
+                        />
+                        <ion-text class="text-dark pl-2">{{
+                          f.airlineInfo.name
+                        }}</ion-text>
+                      </div>
+                    </ion-col>
+                    <ion-col size="6" class="pl-2">
+                      <ion-text class="d-block frm_to"
+                        >{{ f.departureAirportLocationCode }}
+                        {{ f.departureDateTime | date: 'HH:mm' }}</ion-text
+                      >
+                    </ion-col>
+                    <ion-col size="6" class="text-right pr-2">
+                      <ion-text class="d-block frm_to"
+                        >{{ f.arrivalAirportLocationCode }}
+                        {{ f.arrivalDateTime | date: 'HH:mm' }}</ion-text
+                      >
+                    </ion-col>
+                    <ion-col class="d-flex p-2" size="12">
+                      <div>
+                        <ion-text class="d-inine sm_time">{{
+                          f.departureDateTime | date: 'EEE,dd LLL yyyy'
+                        }}</ion-text>
+                      </div>
+                      <div
+                        class="flex-grow-1 text-center position-relative z_0"
+                      >
+                        <ion-text
+                          class="d-inline pr-1 frm_to sm_time lft_lne z_2 back_color3"
+                          ><ion-icon name="timer-outline"></ion-icon
+                        ></ion-text>
+                        <ion-text
+                          class="d-inline sm_time rt_lne pr-1 z_2 back_color3"
+                          >{{
+                            f.journeyDuration | toNumber | durationPipe
+                          }}</ion-text
+                        >
+                      </div>
+                      <div>
+                        <ion-text class="d-block sm_time text-right">{{
+                          f.arrivalDateTime | date: 'EEE,dd LLL yyyy'
+                        }}</ion-text>
+                      </div>
+                    </ion-col>
+                    <div
+                      class="col-12 text-center short_layover_div position-relative"
+                      *ngIf="
+                        flightsegment_index !=
+                        r.flightDetails.flightSegments.length - 1
+                      "
+                    >
+                      <ion-text class="text-dark short_layover_text"
+                        >Layover
+                        {{
+                          diff(
+                            f.arrivalDateTime,
+                            r.flightDetails.flightSegments[
+                              flightsegment_index + 1
+                            ]?.departureDateTime
+                          )
+                        }}</ion-text
+                      >
+                    </div>
+                  </ion-row>
+                </ion-grid>
+              </div>
+            </div>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-col>
+</ion-row>
+</ion-grid>

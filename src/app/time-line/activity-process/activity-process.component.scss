@@ -1,0 +1,95 @@
+$Color4: Black;
+$Color2: #265359;
+$Color6: #efe3e3;
+
+.scroll_class {
+  overflow: auto;
+  height: calc(100vh - 108px);
+}
+.cust_pad {
+  border-bottom: 0.16em solid #e5e5e5;
+  padding: 0px 0px 10px 0px;
+}
+.navbarj {
+  margin-bottom: 6px;
+  z-index: 9999;
+  position: fixed;
+  background-color: #fbfaf8;
+}
+.horizentalLine {
+  margin: 0px;
+  width: 700px;
+  border-top: 1px solid grey;
+}
+.nav-link {
+  color: $Color4;
+  font-style: bolder;
+  font-size: 1rem;
+  padding: 0px !important;
+  background-color:  #fbfaf8;
+
+}
+
+.nav-link.active {
+  color: $Color2;
+  background-color:  #fbfaf8;
+}
+.inputsearch {
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 30px;
+  border: 1px solid #efe3e3;
+  background-color: $Color6;
+  color: $Color2;
+  height: 60px;
+  width: 90%;
+  padding-left: 110px;
+  padding-right: 250px;
+}
+.inputsearch:focus {
+  outline: none;
+  border: 1px solid $Color2;
+  color: #2d9fd9;
+}
+
+.middle {
+  text-align: center;
+}
+.headLine {
+  font-size: 18px;
+}
+.formicon {
+  position: absolute;
+  width: 90px;
+  height: 65px;
+}
+.formicon1 {
+  position: absolute;
+  left: 100px;
+  top: 20px;
+  font-size: 20px;
+}
+.formicon2 {
+  position: absolute;
+  right: 300px;
+  top: 14px;
+}
+.formicon3 {
+  position: absolute;
+  width: 210px;
+  height: 52px;
+  top: 3px;
+  right: 80px;
+  font-size: 15px;
+  background-color: $Color2;
+  color: white;
+  border-radius: 30px;
+}
+.nav-link {
+  color: #000;
+  font-style: bolder;
+  font-size: 1rem;
+  padding: 0!important;
+  background-color: #fbfaf8;
+  margin-left: 32px;
+  }

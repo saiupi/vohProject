@@ -1,0 +1,286 @@
+<ion-menu side="start" menuId="hm_menu" contentId="home_main" class="cust_z">
+  <ion-col>
+    <!-- <ion-header class="bg-white">
+      <ion-toolbar color="grey" class="p-0">
+        <ion-title class="ml-3 text-left" *ngIf="!loginModelStatus">
+          <ion-icon name="person-circle-outline" class="userIcon color1"></ion-icon><br><br>
+          <ion-text class="user_name"> {{infoMessage}} </ion-text>
+        </ion-title>
+        <ion-title class="ml-3 color1 font-weight-bold" *ngIf="loginModelStatus">
+          <ion-text class="ioslogin" (click)="menu_click();presentLogin();">Login</ion-text>
+        </ion-title>
+      </ion-toolbar>
+    </ion-header> -->
+    <ion-content class="bg-white">
+      <ul class="home_ul">
+        <div class="pl-2 mr-5" *ngIf="!loginModelStatus">
+          <div style="font-size:65px">
+            <div *ngIf="nameChange">
+              <ion-icon name="person-circle-outline"></ion-icon>
+            </div>
+            <div *ngIf="!nameChange" class="user_pic  position-relative">
+              <ion-text class="user_short_name">{{ iconName }}</ion-text>
+            </div>
+            <ion-text class="mb-3 user_name_icon">{{
+              userNameShow
+              }}</ion-text>
+          </div>
+          <div class="row">
+            <div class="col-11 home-header-text">
+              <a [routerLink]="['/myaccount/profile']" routerLinkActive="active" (click)="menu_click()">
+                <span class="email_link">{{userPresent?.username}}</span>
+                <!-- <ion-icon name="chevron-forward-outline"></ion-icon> -->
+              </a>
+            </div>
+            <div>
+              <ion-icon class="icon_link" [routerLink]="['/myaccount/profile']" routerLinkActive="active"
+                (click)="menu_click()" name="chevron-forward-outline"></ion-icon>
+            </div>
+          </div>
+
+          <hr>
+        </div>
+        <div *ngIf="loginModelStatus" class="login-text">
+          <div class="row">
+            <div class="col-8">
+              <a (click)="menu_click();presentLogin();" routerLinkActive="active">
+                <span class="p-3 email_link font-weight-bold">Login</span>
+              </a>
+            </div>
+            <div>
+              <ion-icon class="icon_link" (click)="menu_click();presentLogin();" routerLinkActive="active"
+                name="chevron-forward-outline"></ion-icon>
+            </div>
+          </div>
+          <hr>
+        </div>
+        <li>
+          <a class="mr-5" [routerLink]="['']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+            (click)="menu_click()" data-amplify-analytics-on='click' data-amplify-analytics-name='Home'
+            data-amplify-analytics-attrs='menu'>
+            <ion-icon name="home"></ion-icon>&nbsp;<ion-text class="home-slide-text"> Home</ion-text>
+          </a>
+        </li>
+        <!-- <li *ngIf="!loginModelStatus">
+          <a class="mr-5" [routerLink]="['/myaccount/profile']" routerLinkActive="active" (click)="menu_click()">
+            <ion-icon name="man-outline" color="tertiary"></ion-icon> My Account
+          </a>
+        </li> -->
+        <!-- <li>
+          <a class="mr-5" [routerLink]="['/about-us']" routerLinkActive="active" (click)="menu_click()"
+            data-amplify-analytics-on='click' data-amplify-analytics-name='AboutUs' data-amplify-analytics-attrs='menu'>
+            <ion-icon name="information-circle-outline" color="tertiary"></ion-icon> About Us
+          </a>
+        </li> -->
+
+        <li>
+          <a class="mr-5" [routerLink]="['/staycation']" routerLinkActive="active" (click)="menu_click()"
+            data-amplify-analytics-on='click' data-amplify-analytics-name='Staycations'
+            data-amplify-analytics-attrs='menu'>
+            <ion-icon name="bed-outline"></ion-icon>&nbsp;<ion-text class="home-slide-text"> Staycations</ion-text>
+          </a>
+        </li>
+        <li *ngIf="PartnerShow">
+          <a class="mr-5" data-toggle="modal" data-target="#exampleModalCenter" routerLinkActive="active"
+            (click)="menu_click()" data-amplify-analytics-on='click' data-amplify-analytics-name='Staycations'
+            data-amplify-analytics-attrs='menu'>
+            <ion-icon name="people"></ion-icon>&nbsp;<ion-text class="home-slide-text">Partner
+            </ion-text>
+          </a>
+        </li>
+        <li *ngIf="!PartnerShow"></li>
+        <li *ngIf="!loginModelStatus">
+          <a class="mr-5" [routerLink]="['/bookings']" routerLinkActive="active" (click)="menu_click()">
+            <ion-icon name="bag-outline"></ion-icon>&nbsp;<ion-text class="home-slide-text"> View Bookings</ion-text>
+          </a>
+        </li>
+
+        <hr>
+        <!-- <li *ngIf="!loginModelStatus">
+          <a class="mr-5" [routerLink]="['/myaccount/profile']" routerLinkActive="active" (click)="menu_click()">
+            <ion-icon name="man-outline" color="tertiary"></ion-icon> My Account
+          </a>
+        </li> -->
+        <li>
+          <a class="mr-5" [routerLink]="['/about-us']" routerLinkActive="active" (click)="menu_click()"
+            data-amplify-analytics-on='click' data-amplify-analytics-name='AboutUs' data-amplify-analytics-attrs='menu'>
+            <ion-icon name="information-circle"></ion-icon>&nbsp;<ion-text class="home-slide-text"> About Us</ion-text>
+          </a>
+        </li>
+        <li *ngIf="!loginModelStatus">
+          <a class="mr-5" routerLinkActive="active" (click)="menu_click()">
+            <ion-icon name="star"></ion-icon>&nbsp;<ion-text class="home-slide-text"> Rate Us</ion-text>
+          </a>
+        </li>
+        <li *ngIf="!loginModelStatus">
+          <a class="mr-5" routerLinkActive="active" [routerLink]="['/']" (click)="clearUser();">
+            <ion-icon name="power"></ion-icon>&nbsp;<ion-text class="home-slide-text"> Log Out</ion-text>
+          </a>
+        </li>
+      </ul>
+
+    </ion-content>
+  </ion-col>
+  <ion-footer class="pb-3">
+    <ion-toolbar>
+      <ion-row align="center">
+        <ion-col>
+          <ion-icon name="call" id="footer-icon-size"></ion-icon>
+          <ion-text class="home-slide-text"><a class="classname" href="tel:(080)47185303">Call Us</a></ion-text>
+        </ion-col>
+        <div class="vl"></div>
+        <ion-col>
+          <ion-icon name="mail" id="footer-icon-size"></ion-icon>
+          <ion-text class="home-slide-text"><a class="classname" href="mailto:info@voyaah.com">Mail
+              Us</a></ion-text>
+        </ion-col>
+      </ion-row>
+    </ion-toolbar>
+  </ion-footer>
+</ion-menu>
+<ion-header class="p-0 sticky-top bg-white">
+  <ion-header class="navbar firstnav p-1">
+    <a class="navbar-brand"></a>
+    <form class="form-inline">
+      <a class="mr-sm-5 mr-5 font-weight-light fontsize12" href="tel:(080)47185303">
+        <ion-img class="imgthumbnail" [src]=" '../assets/images/Call.svg' "></ion-img>
+        (080) 4718 5303
+      </a>
+      <a class="my-0 my-sm-0 mr-5 pr-5 font-weight-light fontsize12" href="mailto:info@voyaah.com">
+        <ion-img class="imgthumbnail" [src]=" '../assets/images/mail.svg' "></ion-img>
+        info@voyaah.com
+      </a>
+    </form>
+  </ion-header>
+  <header>
+
+    <a class="logo pl-md-5" href="">
+      <ion-img class="ml-2 imglogo" [src]=" '../assets/images/logo.svg' "></ion-img>
+    </a>
+    <a *ngIf="partnerView" class="logo_partner" href="" data-toggle="modal" data-target="#exampleModalCenter2">
+      <h1 class="ml-2 partner">{{partnerNameResp?.vendorName}}</h1>
+    </a>
+    <a *ngIf="!partnerView"></a>
+    <span (click)="openhomemenu()" class="menu_btn">
+      <ion-icon style="zoom: 1.2" name="menu-outline"></ion-icon>
+    </span>
+
+    <nav class="home_menu pr-md-5 mr-md-3">
+      <ul class="lg_nav">
+        <li>
+          <a class="mr-5" [routerLink]="['']" routerLinkActive="active" data-amplify-analytics-on='click'
+            data-amplify-analytics-name='Home' data-amplify-analytics-attrs='menu'
+            [routerLinkActiveOptions]="{exact: true}">Home</a>
+        </li>
+        <li>
+          <a class="mr-5" [routerLink]="['/about-us']" data-amplify-analytics-on='click'
+            data-amplify-analytics-name='AboutUs' data-amplify-analytics-attrs='menu' routerLinkActive="active">About
+            Us</a>
+        </li>
+        <li>
+          <a class="mr-5" [routerLink]="['/staycation']" data-amplify-analytics-on='click'
+            data-amplify-analytics-name='Staycations' data-amplify-analytics-attrs='menu'
+            routerLinkActive="active">Staycations</a>
+        </li>
+        <li *ngIf="PartnerShow">
+          <a data-amplify-analytics-on='click' data-amplify-analytics-name='PartnersModal'
+            data-amplify-analytics-attrs='menu' class="mr-5 cursor-pointer" data-toggle="modal" data-target="#exampleModalCenter"
+            routerLinkActive="active">Partners</a>
+        </li>
+        <li *ngIf="!isLoggedIn">
+          <div *ngIf="loginModelStatus">
+            <p data-amplify-analytics-on='click' data-amplify-analytics-name='LoginModal'
+              data-amplify-analytics-attrs='menu' class="mr-5 cursor-pointer" (click)="presentLogin()">Login</p>
+          </div>
+        </li>
+        <!-- <li *ngIf="isLoggedIn">
+          <div *ngIf="loginModelStatus"><a href="#" class="mr-5" (click)="clearUser()">Sign Out</a></div>
+        </li> -->
+        <!-- *ngIf="!loginModelStatus" -->
+        <!-- {{userName}} -->
+        <li class="user_name position-relative dropdown dropdown-toggle" type="button" id="dropdownMenuButton"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" *ngIf="!loginModelStatus">
+          <ion-icon name="person-circle-outline" class="userIcon color1"></ion-icon>
+          <ion-text> {{infoMessage}} </ion-text>
+          <div class="dropdown-menu mt-0 user_drop" aria-labelledby="dropdownMenuButton">
+            <a class="dropdown-item" href="#" class="d-block p-0 ml-2 mb-1 mr-2"
+              [routerLink]="['/myaccount/profile']"><img src="../../assets/images/userheadlogo.svg" class="mr-2" />My
+              Account</a>
+            <a class="dropdown-item" href="#" class="d-block p-0 ml-2 mb-1 mr-2"
+              [routerLink]="['/myaccount/bookings']"><img src="../../assets/images/userheadlogo.svg" class="mr-2" />My
+              Booking</a>
+            <a class="dropdown-item" href="#" class="d-block p-0 ml-2 mb-1 mr-2" [routerLink]="['/']"
+              (click)="clearUser()">
+              <ion-icon name="exit-outline" class="mr-2"></ion-icon>Sign Out
+            </a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!--Partner Modal -->
+
+  <div #closeAddExpenseModal class="modal fade modal-contentt" id="exampleModalCenter" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-right mt-5" role="document">
+      <div class="modal-content">
+        <i class="mt-3 mr-3 fal fa-times-circle fa-lg partner_close" data-dismiss="modal"></i>
+        <div class="modal-body">
+
+          <form [formGroup]="partnerForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label class="Partner_label">Enter Partner Code</label>
+              <input type="email" class="form-control" formControlName="PartnerName" placeholder="Partner code"
+                [ngClass]="{
+              'is-invalid': submitted && f.PartnerName.errors
+            }" />
+              <div *ngIf="submitted && f.PartnerName.errors" class="invalid-feedback">
+                <div *ngIf="f.PartnerName.errors.required">
+                  Partner name is required
+                </div>
+                <div *ngIf="f.PartnerName.errors.minlength">
+                  Enter valid Partner name
+                </div>
+              </div>
+              <div *ngIf="invalidPartner">
+                <p class="invalid_partner">Invalid partner code</p>
+              </div>
+              <div *ngIf="noPackage">
+                <p class="invalid_partner">No packages available</p>
+              </div>
+            </div>
+            <button data-amplify-analytics-on='click' data-amplify-analytics-name='PartnerCodeSubmit'
+              data-amplify-analytics-attrs='Partner' type="submit" class="partner_btn">Submit</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- partner Modal 2 -->
+
+  <div class="modal fade modal-contentt" id="exampleModalCenter2" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mt-5" role="document">
+      <div class="modal-content">
+        <i class="mt-3 mr-3 fal fa-times-circle fa-lg partner_close" data-dismiss="modal"></i>
+        <div class="modal-body">
+          <h1 class="ml-2 partner"></h1>
+          <h3 class="partner_name">{{partnerNameResp?.vendorName}}</h3>
+        </div>
+        <br />
+        <button type="submit" data-dismiss="modal" [routerLink]="['/']" (click)="clearPartner()"
+          class="partner_btn_resp mb-1">Clear
+          Partner</button>
+      </div>
+    </div>
+  </div>
+
+
+
+</ion-header>
+<ion-content id="home_main">
+  <ion-router-outlet></ion-router-outlet>
+</ion-content>

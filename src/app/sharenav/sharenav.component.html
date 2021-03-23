@@ -1,0 +1,29 @@
+<ion-header class="mobile-hide">
+  <nav
+    class="navbar navbar-expand-lg bg-white itenary_main_nav sticky_nav"
+    style="z-index: 10"
+  >
+    <img
+      src="../../assets/images/logo.svg"
+      class="logo_top"
+      (click)="gotohome()"
+    />
+
+    <div class="ml-auto mr-sm-5" *ngIf="showPreviewItinerary">
+      <form class="form-inline">
+        <a class="mr-5 previewtext cursor-pointer" [routerLink]="['/preview']"
+          >Preview Itinerary</a
+        >
+      </form>
+      <form class="form-inline2">
+        <!-- <ion-icon name="share-outline" class="mr-3"></ion-icon>
+        <ion-icon name="bookmark-outline" class="mr-3"></ion-icon> -->
+        <!-- <img
+          src="../../assets/images/logo.svg"
+          class="logo_top2"
+          (click)="gotohome()"
+        /> -->
+      </form>
+    </div>
+  </nav>
+</ion-header>

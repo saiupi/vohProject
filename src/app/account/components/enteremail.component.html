@@ -1,0 +1,43 @@
+<div class="card_pad">
+  <ion-title class="form_title1 mb-3">
+    Enter Email </ion-title>
+  <div class="closeBtn">
+    <ion-buttons>
+      <ion-button color="black" (click)="closeModal()">
+        <i class="fal fa-times-circle fa-lg"></i>
+      </ion-button>
+    </ion-buttons>
+  </div>
+  <form [formGroup]="emailForm" (ngSubmit)="onSubmitEmail()">
+    <div class="d-flex no-gutters">
+      <div *ngIf="!containsAlphabet && emailForm.controls.username.value.length>3" class="country-code">
+        <select class="form-control d-inline" id="sel1" formControlName="countryCode">
+          <option value="+91">+91</option>
+          <option value="+1">+1</option>
+        </select>
+      </div>
+      <div class="flex-grow-1">
+        <input autocomplete="off" type="email" (input)="trackType($event)"
+          formControlName="username" class="form-control" [ngClass]="{
+          'is-invalid': submitted && v.username.errors }" placeholder="Email or Mobile Number" maxlength="50" />
+        <div *ngIf="submitted && v.username.errors" class="invalid-feedback">
+          <div *ngIf="v.username.errors.required">
+            Email or Mobile Number is required
+          </div>
+          <div *ngIf="v.username.errors.pattern">
+            Email should be valid (or) mobile number required country
+          code(+9177777777777)
+          </div>
+          <h4  *ngIf="invalidUser" class=" invalidEmail mt-1">{{errorMsg.message}}</h4>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div class="mt-2 text-right">
+      <button class="text-white save-button-styles mt-2" data-amplify-analytics-on='click'
+      data-amplify-analytics-name='ForgotPasswordMailSubmit' data-amplify-analytics-attrs='ForgotPassword'>Submit</button>
+    </div>
+  </form>
+</div>

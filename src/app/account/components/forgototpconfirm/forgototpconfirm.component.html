@@ -1,0 +1,27 @@
+<div class="text-center otp_absolute">
+  <ion-icon name="phone-portrait-outline" class="phone_symbol"></ion-icon>
+  <h3 class="otp_color font-weight-bold">Verify OTP</h3>
+  <p class="otp_color">
+    Please Enter The 6 Digits Code <br />Sent To Your Email.
+  </p>
+  <form (ngSubmit)="onSubmitForm()" [formGroup]="form" class="container-fluid">
+    <div class="row">
+      <div class="d-inline mx-auto p-0">
+        <div *ngFor="let input of formInput; index as i" class="d-inline">
+          <input #formRow type="type" formControlName="{{ input }}" class="ml-2 Otp_box" maxlength="1"
+            onkeypress="return event.charCode >= 48 && event.charCode <= 57" (keyup)="keyUpEvent($event, i)" />
+        </div>
+      </div>
+    </div>
+    <ion-text class="Otp_drop d-inline-block mb-3 mt-3">Have not received The Code?<ion-text (click)="resendOtp()"
+        class=" pl-1 inactiveLink">Resend</ion-text>
+    </ion-text>
+    <ion-text class="d-block">{{ errorMsg }}</ion-text>
+    <br />
+
+    <button type="submit" [ngClass]="checkOTP ? 'otp_submit' : 'otp_submit1'" [disabled]="form.invalid">
+      <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Submit
+    </button>
+    <button type="button" class="otp_submit ml-2" (click)="CloseOtpModal()">Cancel</button>
+  </form>
+</div>

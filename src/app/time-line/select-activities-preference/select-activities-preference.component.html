@@ -1,0 +1,36 @@
+<ion-grid class="mt-5">
+  <ion-text class="text-dark flt_back_btn" (click)="act_back()">
+    <ion-icon style="zoom: 0.9" name="arrow-back-outline"></ion-icon>
+  </ion-text>
+  <button class="btn ac_apply mt-5" (click)="SaveSelectedActivity()">
+    Apply
+  </button>
+  <ion-row class="mt-5">
+    <ion-col class="container-fluid leftcol-background">
+      <div class="row">
+        <div
+          class="col-md-6 col-lg-4 card_size"
+          *ngFor="let a of activitiesPreferences; let i = index"
+          (click)="selectActivity(a.name, i, a.selecttrack)"
+        >
+          <div class="row">
+            <div class="p23">
+              <img src="{{ a.coverImageUrl }}" class="card_img text-center" />
+              <img
+                src="../../../assets/images/Group 51623.png"
+                class="select_bar img-fliud"
+                [ngClass]="a.selecttrack ? 'selectbar_display' : ''"
+              />
+              <button
+                class="cardbutton"
+                [ngClass]="a.selecttrack ? 'btn_hover' : ''"
+              >
+                {{ a.name }}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>

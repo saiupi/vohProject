@@ -1,0 +1,366 @@
+<ion-col>
+  <!-- <ion-text class="text-dark flt_back_btn" (click)="backclick()">
+    <ion-icon style="zoom: 1.1;" name="arrow-back-outline"></ion-icon>
+  </ion-text> -->
+  <ion-col size="12" class="p-2 fltr_sm">
+    <ion-icon style="zoom: 2.0;
+    margin-bottom: -5px;" name="arrow-back-outline" (click)="backclick()"></ion-icon>
+    <ion-text class="color2 ml-3" (click)="filterbackclick()">Available Flights</ion-text>
+    <ion-text class="color2 float-right mr-3" (click)="filterclick()">More Filters</ion-text>
+  </ion-col>
+  <ion-grid class="col-lg-6 col-md-12 p-1 flt_top">
+    <ion-row>
+
+      <ion-col class="p-0">
+        <ion-row class="position-relative">
+          <ion-col class="position-relative col-6 pr-custom">
+            <div class="position-relative frm_cls">
+              <img src="../../assets/images/Artwork 5.svg" />
+              <ion-text class="top">From</ion-text><br />
+              <ion-text class="below">{{ fromLocation }}</ion-text>
+            </div>
+          </ion-col>
+          <ion-icon name="swap-horizontal-outline" class="swap_horizontal"></ion-icon>
+          <ion-col class="position-relative col-6 pl-custom">
+            <div class="position-relative frm_cls">
+              <img src="../../assets/images/Artwork 5.svg" />
+              <ion-text class="top">To</ion-text><br />
+              <ion-text class="below">{{ toLocation }}</ion-text>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+      <ion-col class="">
+        <ion-row class="position-relative">
+          <ion-col class="position-relative col-7">
+            <div class="position-relative frm_cls">
+              <img src="../../assets/images/Artwork 6.svg" class="flt_img" />
+              <ion-text class="top">Departure</ion-text><br />
+              <ion-text class="below">{{ fromDate | date }}</ion-text>
+            </div>
+          </ion-col>
+          <ion-col class="position-relative p-0">
+            <ion-text class="mr_fltrs cursor-pointer" (click)="filterclick()">More Filters</ion-text>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <div *ngIf="isLoading" class="text-center mt-5">
+    <img class="img-fluid mx-auto" src="../../../assets/images/flight-fly.gif" width="300px" height="300px" />
+  </div>
+  <div *ngIf="isError" class="text-center mt-5">
+    <img class="img-fluid mx-auto d-block" src="../../../assets/images/service error.gif" width="200px"
+      height="200px" />
+    <ion-text class="d-block text-center errorMessage">{{ errorMessage }}</ion-text>
+  </div>
+  <ion-grid class="container-fluid p-5 bg-white mg_t_50" *ngIf="fltr_cards_display">
+    <ion-text class="text-dark filter_back_btn" (click)="filterbackclick()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-text>
+    <ion-row class="row">
+
+      <ion-col class="col-12 col-sm-6 mb-4 pr-5">
+        <ion-text class="d-block text-dark fltr_head">Price</ion-text>
+        <ion-text class="d-block color2">Upto : ${{ farevalue }}</ion-text>
+        <mat-slider min="100" max="5000" step="100" [(value)]="farevalue" class="pl-0 w-100"></mat-slider>
+        <div>
+          <ion-text class="color2">$100</ion-text>
+          <ion-text class="color2 float-right">$5000</ion-text>
+        </div>
+      </ion-col>
+      <ion-col class="col-12 col-sm-6 mb-4">
+        <ion-text class="d-block text-dark fltr_head">Fare Type:</ion-text>
+        <ion-text class="d-block color2">Partially Refundable</ion-text>
+        <mat-slide-toggle [checked]="isPartialRefundChecked" (change)="onRefundChanged($event)" class="mt-2 pt-1">
+        </mat-slide-toggle>
+      </ion-col>
+      <ion-col class="col-12 col-sm-10 mb-4">
+        <ion-text class="d-block text-dark fltr_head">Duration:</ion-text>
+        <ion-text class="d-block color2">{{ durationvalue }} min</ion-text>
+        <mat-slider min="30" max="300" step="1" [(value)]="durationvalue" class="pl-0 w-100"></mat-slider>
+        <div>
+          <ion-text class="color2">30 min</ion-text>
+          <ion-text class="color2 float-right">300 min</ion-text>
+        </div>
+      </ion-col>
+
+      <ion-col class="col-12 col-sm-5 col-md-5 mb-4">
+        <ion-text class="d-block text-dark fltr_head">Depart Time:</ion-text>
+        <div class="cursor-pointer dprt_tm mr-1" [ngClass]="depart[0] ? 'clicked' : ''" (click)="departclick(0)">
+          <ion-text class="dprt_txt">00-06</ion-text>
+        </div>
+        <div class="cursor-pointer dprt_tm mr-1" [ngClass]="depart[1] ? 'clicked' : ''" (click)="departclick(1)">
+          <ion-text class="dprt_txt">06-12</ion-text>
+        </div>
+        <br />
+        <div class="cursor-pointer dprt_tm mr-1" [ngClass]="depart[2] ? 'clicked' : ''" (click)="departclick(2)">
+          <ion-text class="dprt_txt">12-18</ion-text>
+        </div>
+        <div class="cursor-pointer dprt_tm mr-1" [ngClass]="depart[3] ? 'clicked' : ''" (click)="departclick(3)">
+          <ion-text class="dprt_txt">18-00</ion-text>
+        </div>
+      </ion-col>
+      <ion-col class="col-12 col-sm-7 col-md-7 mb-4">
+        <ion-row>
+          <ion-col class="mb-2">
+            <ion-text class="d-block text-dark fltr_head">Airlines:</ion-text>
+            <ng-multiselect-dropdown [placeholder]="'Select Airlines'" [data]="airlines" [(ngModel)]="selectedAirlines"
+              [settings]="dropdownSettings">
+            </ng-multiselect-dropdown>
+
+          </ion-col>
+
+        </ion-row>
+      </ion-col>
+      <ion-col class="col-12 col-sm-10 text-right mb-4">
+        <ion-text class="text-dark cursor-pointer" (click)="filterbackclick()">Back</ion-text><button
+          class="btn apply_filters_btn ml-3" (click)="applyclick()">
+          Apply
+        </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="no-gutters lg_dsplay p-2">
+    <ion-grid *ngIf="!fltr_cards_display" class="accordion" id="accordion_lg">
+      <ion-card class="bg-white text-dark position-relative mb-2 flt_card "
+        *ngFor="let h of flightsmodified; let ind = index">
+        <ion-grid class="container-fluid">
+          <ion-row class="row">
+            <ion-col class="d-flex col-12 mb-3 mt-1" size="12">
+              <div class="d-inline">
+                <img *ngFor="let image of h.flightSegments|airlinesImage" src="{{image}}" class="img-fluid pr-2" />
+                <ion-text class="text-dark pr-2 airline_name position-relative"
+                  *ngFor="let name of h.flightSegments|airlinesName">{{name}}
+                </ion-text>
+              </div>
+            </ion-col>
+            <ion-col class="col-md-3 col-6 mb_sm">
+              <ion-text class="d-block frm_to">{{
+                h.flightSegments[0].departureAirportLocationCode
+              }} {{h.flightSegments[0].airlineInfo.departureCity}}</ion-text>
+              <ion-text class="d-block time">{{
+                h.flightSegments[0].departureDateTime | slice: 11:16
+              }}</ion-text>
+            </ion-col>
+            <ion-col class="col-md-3 col-6">
+              <ion-text class="d-block text-center frm_to">
+                <ion-icon name="timer-outline"></ion-icon>
+              </ion-text>
+              <!-- <ion-text class="d-block time text-center">{{h.totalDuration|durationPipe}}</ion-text> -->
+              <ion-text class="d-block text-center time">{{h|totalDuration|durationPipe}}</ion-text>
+            </ion-col>
+            <ion-col class="col-md-6 col-6 mb_sm">
+              <ion-text class="d-block frm_to">{{
+                h.flightSegments[h.flightSegments.length - 1]
+                  .arrivalAirportLocationCode
+              }} {{
+                h.flightSegments[h.flightSegments.length - 1]
+                  .airlineInfo.arrivalCity
+              }}</ion-text>
+              <ion-text class="d-block time">{{
+                h.flightSegments[h.flightSegments.length - 1].arrivalDateTime
+                  | slice: 11:16
+              }}</ion-text>
+            </ion-col>
+            <ion-col size="12" class="pl-3 mt-2 mb-2">
+              <ion-text class="fnt_sze_13 position-relative stops mr-3" *ngFor="let s of h.flightSegments">
+                {{ s.departureAirportLocationCode }}</ion-text>
+              <ion-text class="fnt_sze_13 position-relative mr-3">{{
+                h.flightSegments[h.flightSegments.length - 1]
+                  .arrivalAirportLocationCode
+              }}</ion-text>
+              <ion-text class="fnt_sze_13 pl-5">{{ h.flightSegments.length - 1 }} stop(s)</ion-text>
+              <ion-text class="flt_dtls cursor-pointer" data-toggle="collapse" [attr.data-target]="'#collapse-' + ind"
+                aria-expanded="true" [attr.aria-controls]="'collapse-' + ind">Flight Details ></ion-text>
+            </ion-col>
+            <button data-amplify-analytics-on='click'
+            data-amplify-analytics-name='AddFlights' data-amplify-analytics-attrs='Flights' type="button" class="btn add_nw" (click)="addFlights(h)">
+              Add Now
+            </button>
+          </ion-row>
+        </ion-grid>
+        <div class="no-gutters connecting_flights collapse" [attr.id]="'collapse-' + ind" aria-labelledby="headingTwo"
+          data-parent="#accordion_lg">
+          <div class="pb-3">
+            <ion-grid class="container-fluid pt-3" *ngFor="let f of h.flightSegments; let flightsegment_index=index">
+              <ion-row class="row">
+                <ion-col class="d-flex col-12 mb-3" size="12">
+                  <div class="d-inline aero_name">
+                    <img src="{{f.airlineInfo.logoURL}}" class="img-fluid" />
+                    <ion-text class="text-dark pl-2">{{f.airlineInfo.name}}</ion-text>
+                  </div>
+                </ion-col>
+                <ion-col class="col-md-3 col-6 mb_sm">
+                  <ion-text class="d-block frm_to">{{
+                  f.departureAirportLocationCode
+                }} {{
+                  f.departureDateTime | date:'HH:mm'
+                }}</ion-text>
+                  <ion-text class="d-block time">{{
+                  f.departureDateTime  | date:'EEE,dd LLL yyyy'
+                }}</ion-text>
+                </ion-col>
+                <ion-col class="col-md-3 col-6">
+                  <ion-text class="d-block text-center frm_to">
+                    <ion-icon name="timer-outline"></ion-icon>
+                  </ion-text>
+                  <ion-text class="d-block text-center time">{{f.journeyDuration |toNumber|durationPipe}}</ion-text>
+                </ion-col>
+                <ion-col class="col-md-6 col-6 mb_sm">
+                  <ion-text class="d-block frm_to">{{
+                  f.arrivalAirportLocationCode
+                }} {{
+                  f.arrivalDateTime | date:'HH:mm'
+                }}</ion-text>
+                  <ion-text class="d-block time">{{
+                  f.arrivalDateTime | date:'EEE,dd LLL yyyy'
+                }}</ion-text>
+                </ion-col>
+              </ion-row>
+              <div class="text-center short_layover_div position-relative"
+                *ngIf="flightsegment_index!=h.flightSegments.length-1">
+                <ion-text class="text-dark short_layover_text">Layover
+                  {{diff(f.arrivalDateTime,h.flightSegments[flightsegment_index+1]?.departureDateTime)}}</ion-text>
+              </div>
+            </ion-grid>
+          </div>
+
+        </div>
+      </ion-card>
+    </ion-grid>
+  </div>
+  <div class="pl-3 pr-3 mt-2 sm_dsplay">
+    <ion-grid class="" *ngIf="!fltr_cards_display" class="accordion" id="accordion_sm">
+      <ion-row>
+
+        <ion-col class="position-relative">
+          <ion-card class="bg-white text-dark flt_card mb-2" *ngFor="let h of flightsmodified;let ind=index;">
+            <ion-grid class="container-fluid">
+              <ion-row class="row p-0">
+                <ion-col class="d-flex col-12 mb-2 p-2" size="12">
+                  <div class="d-inline">
+                    <img *ngFor="let image of h.flightSegments|airlinesImage" src="{{image}}" class="img-fluid pr-2" />
+                    <ion-text class="text-dark pr-2 airline_name position-relative"
+                      *ngFor="let name of h.flightSegments|airlinesName">
+                      {{name}}
+                    </ion-text>
+                  </div>
+                </ion-col>
+                <ion-col size="6" class="pl-2">
+                  <ion-text class="d-block frm_to">{{
+                  h.flightSegments[0].departureAirportLocationCode
+                }} {{h.flightSegments[0].airlineInfo.departureCity}}</ion-text>
+                </ion-col>
+                <ion-col size="6" class="text-right pr-2">
+                  <ion-text class="d-block frm_to">{{
+                  h.flightSegments[h.flightSegments.length - 1]
+                    .arrivalAirportLocationCode
+                }} {{ h.flightSegments[h.flightSegments.length - 1].airlineInfo.arrivalCity}}</ion-text>
+                </ion-col>
+                <ion-col class="d-flex p-2" size="12">
+                  <div>
+                    <ion-text class="d-inine time">{{
+                    h.flightSegments[0].departureDateTime | slice: 11:16
+                  }}</ion-text>
+                  </div>
+                  <div class="flex-grow-1 text-center position-relative z_0">
+                    <ion-text class="d-inline pr-1 frm_to time lft_lne bg-white z_2">
+                      <ion-icon name="timer-outline"></ion-icon>
+                    </ion-text>
+                    <ion-text class="d-inline time rt_lne bg-white pr-1 z_2">{{h|totalDuration|durationPipe}}</ion-text>
+                  </div>
+                  <div>
+                    <ion-text class="d-block time">{{
+                    h.flightSegments[h.flightSegments.length - 1]
+                      .arrivalDateTime | slice: 11:16
+                  }}</ion-text>
+                  </div>
+                </ion-col>
+                <ion-col size="12" class="p-2">
+                  <ion-text class="fnt_sze_13 position-relative stops mr-3" *ngFor="let s of h.flightSegments">
+                    {{ s.departureAirportLocationCode }}</ion-text>
+                  <ion-text class="fnt_sze_13 position-relative mr-3">{{
+                  h.flightSegments[h.flightSegments.length - 1]
+                    .arrivalAirportLocationCode
+                }}</ion-text>
+                  <ion-text class="fnt_sze_13 pl-5">{{ h.flightSegments.length - 1 }} stop(s)</ion-text>
+                </ion-col>
+                <ion-col size="12" class="flt_crd_btm p-3">
+                  <ion-row>
+                    <ion-col size="6" class="flt_dtls_sm fnt_sze_13" data-toggle="collapse"
+                      [attr.data-target]="'#collapse-' + ind" aria-expanded="true"
+                      [attr.aria-controls]="'collapse-' + ind">
+                      Flight Details<ion-icon name="caret-down" class="mb_fnt"></ion-icon>
+                    </ion-col>
+                    <ion-col size="6" class="add text-right" (click)="addFlights(h)">
+                      Add Now
+                    </ion-col>
+                  </ion-row>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <div class="no-gutters connecting_flights collapse" [attr.id]="'collapse-' + ind"
+              aria-labelledby="headingTwo" data-parent="#accordion_sm">
+              <div class="pb-3">
+                <ion-grid class="container-fluid" *ngFor="let f of h.flightSegments; let flightsegment_index=index">
+                  <ion-row class="row p-0">
+                    <ion-col class="d-flex col-12 mb-2 p-2" size="12">
+                      <div class="d-inline aero_name">
+                        <img src="{{f.airlineInfo.logoURL}}" class="img-fluid" />
+                        <ion-text class="text-dark pl-2">{{f.airlineInfo.name}}</ion-text>
+                      </div>
+                    </ion-col>
+                    <ion-col size="6" class="pl-2">
+                      <ion-text class="d-block frm_to">{{
+                  f.departureAirportLocationCode
+                }} {{
+                  f.departureDateTime | date:'HH:mm'
+                }}</ion-text>
+                    </ion-col>
+                    <ion-col size="6" class="text-right pr-2">
+                      <ion-text class="d-block frm_to">{{
+                  f.arrivalAirportLocationCode
+                }} {{
+                  f.arrivalDateTime | date:'HH:mm'
+                }}</ion-text>
+                    </ion-col>
+                    <ion-col class="d-flex p-2" size="12">
+                      <div>
+                        <ion-text class="d-inine sm_time">{{
+                    f.departureDateTime  | date:'EEE,dd LLL yyyy'
+                  }}</ion-text>
+                      </div>
+                      <div class="flex-grow-1 text-center position-relative z_0">
+                        <ion-text class="d-inline pr-1 frm_to sm_time lft_lne z_2 back_color3">
+                          <ion-icon name="timer-outline"></ion-icon>
+                        </ion-text>
+                        <ion-text class="d-inline sm_time rt_lne pr-1 z_2 back_color3">
+                          {{f.journeyDuration |toNumber|durationPipe}}</ion-text>
+                      </div>
+                      <div>
+                        <ion-text class="d-block sm_time">{{
+                    f.arrivalDateTime | date:'EEE,dd LLL yyyy'
+                  }}</ion-text>
+                      </div>
+                    </ion-col>
+                    <div class="col-12 text-center short_layover_div position-relative"
+                      *ngIf="flightsegment_index!=h.flightSegments.length-1">
+                      <ion-text class="text-dark short_layover_text">Layover
+                        {{diff(f.arrivalDateTime,h.flightSegments[flightsegment_index+1]?.departureDateTime)}}
+                      </ion-text>
+                    </div>
+                  </ion-row>
+                </ion-grid>
+              </div>
+
+            </div>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+
+</ion-col>

@@ -1,0 +1,22 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-voyaahuikit-dev-184052-authRole",
+      "UnauthRoleArn": "arn:aws:iam::328063192887:role/amplify-voyaahuikit-dev-184052-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::328063192887:role/amplify-voyaahuikit-dev-184052-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-voyaahuikit-dev-184052-deployment",
+      "UnauthRoleName": "amplify-voyaahuikit-dev-184052-unauthRole",
+      "StackName": "amplify-voyaahuikit-dev-184052",
+      "StackId": "arn:aws:cloudformation:ap-south-1:328063192887:stack/amplify-voyaahuikit-dev-184052/687a3370-299f-11eb-aa39-06e2de61f8e6",
+      "AmplifyAppId": "d10q682yev70ug"
+    },
+    "categories": {
+      "auth": {
+        "voyaahuikit68564085": {
+          "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"3573394366044734\",\"client_secret\":\"ec92127fe7fc6c122ebbaa579dc372a1\"},{\"ProviderName\":\"Google\",\"client_id\":\"425281702352-5d6i4ah4nu7s6sr659ouvv3hkkjv2m51.apps.googleusercontent.com\",\"client_secret\":\"R5deRCQ_WvTyoCYXTmDzvr0B\"}]"
+        }
+      }
+    }
+  }
+}

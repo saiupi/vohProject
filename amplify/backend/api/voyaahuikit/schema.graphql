@@ -1,0 +1,401 @@
+type VYTravellerCount {
+  adultCount: Int
+  childCount: Int
+  infantCount: Int
+}
+
+enum VYTravelType {
+  OneWay
+  TwoWay
+  MultiCity
+}
+
+type VYCity {
+  id: Int
+  airportCode: [String]
+  airportName: [String]
+  cityName: String
+  countryCode: String
+  countryName: String
+  vendorName: String
+  latitude: Float
+  longitude: Float
+}
+type VYCurrentItinerary {
+  itineraryName: String
+  startDate: AWSDateTime
+  endDate: AWSDateTime
+  originCity: VYCity
+  destinationCities: [VYCity]
+  travelType: VYTravelType
+  travellers: VYTravellerCount
+  packageId: ID
+}
+type VYCurrentItineraryModel
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: groups, groups: ["Admin"] }
+      {
+        allow: private
+        provider: iam
+        operations: [create, read, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  username: String
+  itineraryName: String
+  currentItinerary: VYCurrentItinerary
+}
+
+type VYIdentificationDetails {
+  idType: String
+  idNumber: String
+  issuedOn: AWSDateTime
+  expiryDate: AWSDateTime
+  countryName: String
+  cityName: String
+}
+
+type VYUserProfile {
+  id: String
+  firstName: String
+  middleName: String
+  lastName: String
+  relationshipToUser: String
+  dateOfBirth: AWSDateTime
+  gender: String
+  maritalStatus: String
+  mobileNo: String
+  isMobileVerified: Boolean
+  email: String
+  isEmailVerified: Boolean
+  idDetails: [VYIdentificationDetails]
+  address: String
+  cityName: String
+  countryName: String
+  zipCode: String
+}
+type VYUserProfileModel
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: groups, groups: ["Admin"] }
+      {
+        allow: private
+        provider: iam
+        operations: [create, read, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  username: String
+  userProfile: VYUserProfile
+  familyProfile: [VYUserProfile]
+}
+
+type VYTravelPackage
+  @model
+  @auth(
+    rules: [
+      { allow: groups, groups: ["Admin"] }
+      { allow: groups, groupsField: "groupsCanAccess" }
+      {
+        allow: private
+        provider: iam
+        operations: [create, read, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  packagename: String
+  packageStatus: String
+  packageReference: String!
+  packageValues: AWSJSON
+  availableFrom: AWSDateTime
+  availableUpTo: AWSDateTime
+  packageOwners: [String]
+  groupsCanAccess: [String]
+}
+
+type VYBookingMargin {
+  percentValue: Float
+  minimumFee: Float
+}
+type VYMarginExclusions {
+  exclusionName: String
+  exclusionCode: String
+  exclusionMargin: VYBookingMargin
+}
+
+type VYCancelRuleEx {
+  refundPercent: Float
+  graceDays: Int
+}
+
+type VYCancelPolicyEx {
+  minimumFee: Float
+  adminFee: Float
+  cancelRules: [VYCancelRuleEx]
+}
+
+type VYTrawexFlightSettings {
+  defaultMargin: VYBookingMargin
+  byAirline: [VYMarginExclusions]
+  byDestination: [VYMarginExclusions]
+  cancelPolicy: VYCancelPolicyEx
+}
+
+type VYTrawexHotelSettings {
+  defaultMargin: VYBookingMargin
+  byHotelChain: [VYMarginExclusions]
+  cancelPolicy: VYCancelPolicyEx
+}
+
+type VYTrawexSettingsModel
+  @model
+  @auth(
+    rules: [
+      { allow: groups, groups: ["Admin"] }
+      {
+        allow: private
+        provider: iam
+        operations: [create, read, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  flights: VYTrawexFlightSettings
+  hotels: VYTrawexHotelSettings
+}
+
+type VYMusementActivitySettings {
+  defaultMargin: VYBookingMargin
+  byActivity: [VYMarginExclusions]
+  cancelPolicy: VYCancelPolicyEx
+}
+
+type VYMusementSettingsModel
+  @model
+  @auth(
+    rules: [
+      { allow: groups, groups: ["Admin"] }
+      {
+        allow: private
+        provider: iam
+        operations: [create, read, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  activities: VYMusementActivitySettings
+}
+
+type VYPackageInventoryModel
+  @model
+  @key(fields: ["packageId", "inventoryDate", "roomType"])
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: groups, groups: ["Admin"] }
+      { allow: groups, groupsField: "groupsCanAccess" }
+      {
+        allow: private
+        provider: iam
+        operations: [create, read, update, delete]
+      }
+    ]
+  ) {
+  packageId: String!
+  inventoryDate: AWSDateTime!
+  roomType: String!
+  totalRooms: String!
+  availableRooms: String!
+  bookedRooms: String!
+  inventoryStatus: String!
+  fareInfo: AWSJSON
+  groupsCanAccess: [String]
+}
+type VYStaycationInventoryModel
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: groups, groups: ["Admin"] }
+      { allow: groups, groupsField: "groupsCanAccess" }
+      {
+        allow: private
+        provider: iam
+        operations: [create, read, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  packageId: String!
+  inventoryDate: AWSDateTime!
+  roomType: String!
+  totalRooms: String!
+  availableRooms: String!
+  bookedRooms: String!
+  inventoryStatus: String!
+  roomId: String
+  packageReference: String
+  fareInfo: AWSJSON
+  extraData: AWSJSON
+  groupsCanAccess: [String]
+}
+
+type VYCouponBatches
+  @model
+  @key(fields: ["vendorId", "createdAt"])
+  @key(
+    name: "byPackageId"
+    fields: ["vendorId", "packageId"]
+    queryField: "ItemsByPackageId"
+  )
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: groups, groups: ["Admin"] }
+      { allow: groups, groupsField: "groupsCanAccess" }
+      {
+        allow: private
+        provider: iam
+        operations: [create, read, update, delete]
+      }
+    ]
+  ) {
+  vendorId: ID!
+  createdAt: AWSDateTime!
+  batchId: ID!
+  batchName: String!
+  batchCode: String!
+
+  packageId: ID!
+
+  couponCount: Int!
+  groupsCanAccess: [String]
+}
+
+type VYVendorsModel
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: groups, groups: ["Admin"] }
+      { allow: groups, groupsField: "groupsCanAccess" }
+      {
+        allow: private
+        provider: iam
+        operations: [create, read, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  vendorName: String!
+  vendorCode: String!
+  contactPhone: String
+  email: String
+  vendorStatus: String
+  vendorData: AWSJSON
+  contactAddress: String
+  conginitoName: String
+  cognitoUserId: String
+  congnitoSecret: String
+  groupsCanAccess: [String]
+}
+
+type VYCouponCodesModel
+  @model
+  @key(fields: ["batchCode", "couponCode"])
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: groups, groups: ["Admin"] }
+      { allow: groups, groupsField: "groupsCanAccess" }
+      {
+        allow: private
+        provider: iam
+        operations: [create, read, update, delete]
+      }
+    ]
+  ) {
+  couponCode: String!
+  batchCode: String!
+  batchId: ID!
+  packageId: ID!
+  vendorId: ID!
+  validFrom: AWSDateTime
+  validUpto: AWSDateTime
+  couponStatus: String
+  discountType: String
+  discountPercent: String
+  discountFixedValue: String
+  groupsCanAccess: [String]
+}
+
+type VYCustomBookingModel
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: groups, groups: ["Admin"] }
+      {
+        allow: private
+        provider: iam
+        operations: [create, read, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  username: String!
+  itineraryName: String
+  bookingType: String
+  bookingStatus: String
+  bookingDetails: AWSJSON
+  travelStartDate: AWSDateTime
+  travelCity: String
+  email: String
+  mobileNo: String
+  bookingDecription: AWSJSON
+  bookingReference: String!
+  paymentDetails: AWSJSON
+}
+
+type VYStaycationBookingModel
+  @model
+  @auth(
+    rules: [
+      { allow: owner }
+      { allow: groups, groups: ["Admin"] }
+      {
+        allow: private
+        provider: iam
+        operations: [create, read, update, delete]
+      }
+    ]
+  ) {
+  id: ID!
+  username: String!
+  itineraryName: String
+  bookingType: String
+  bookingStatus: String
+  travelStartDate: String
+  bookingDetails: AWSJSON
+  vendorId: String!
+  packageId: String!
+  bookingReference: String!
+  email: String
+  mobileNo: String
+  couponCode: String
+  roomType: String
+  basePackagePrice: String
+  discountedPrice: String
+  discountedValue: String
+  paymentDetails: AWSJSON
+  canceledDate: AWSDateTime
+  refundAmount: String
+}

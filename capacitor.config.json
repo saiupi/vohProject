@@ -1,0 +1,13 @@
+{
+  "appId": "com.voyaah.travel",
+  "appName": "Voyaah Travel",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist/app/browser",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "cordova": {}
+}

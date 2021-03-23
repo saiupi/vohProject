@@ -1,0 +1,41 @@
+$primary-color: #265359;
+$secondary-color: #fbfaf8;
+$third-colour: #707070;
+.color-primary {
+  color: $primary-color;
+}
+.sbt_btn {
+  background-color: $primary-color;
+  color: white;
+  border-radius: 20px;
+  font-size: 14px;
+  padding: 5px 12px;
+}
+.label-text {
+  color: $third-colour;
+  font-size: 13px;
+}
+.verify {
+  border: none !important;
+  background-color: transparent;
+  color: #0059ce;
+  position: absolute;
+  top: 42px;
+  right: 14px;
+  font-weight: 600;
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
+  background-color: white;
+}
+.invalid_message {
+  color: red;
+  font-size: 12px;
+}
+.closeBtn {
+  color: $primary-color;
+  position: absolute;
+  right: 14px;
+  top: 10px;
+  font-size: 22px;
+}

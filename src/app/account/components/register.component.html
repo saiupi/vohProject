@@ -1,0 +1,113 @@
+﻿<div *ngIf="!confirmOtp" class="container-fluid baner">
+  <div class="closeBtn">
+    <ion-buttons>
+      <ion-button color="black" (click)="closeModal()">
+        <i class="fal fa-times-circle fa-lg"></i>
+      </ion-button>
+    </ion-buttons>
+  </div>
+  <div class="row">
+    <div class="card_pad" *ngIf="!confirmOtp">
+      <div class="mb-3">
+        <ion-text class="signUp_form_text mb-3 font-weight-bold">Sign Up</ion-text>
+        <ion-text class="signUp_form_text1 float-right ml-1 font-weight-bold" (click)="renderLoginModel()">Log In
+        </ion-text>
+        <ion-text class="signup_form_title2 float-right">Already a member?</ion-text>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <label for="username" class="pStyle m-0">Email or Mobile Number</label>
+        <div class="d-flex no-gutters">
+          <div *ngIf="!containsAlphabet && form.controls.username.value.length>3">
+            <select class="form-control d-inline" id="sel1" formControlName="countryCode">
+              <option value="+91">+91</option>
+              <option value="+1">+1</option>
+            </select>
+          </div>
+          <div class="flex-grow-1">
+            <input type="email" (keyup)="onKey($event)" (input)="trackType($event)" formControlName="username"
+              class="form-control borderlineLogin" [ngClass]="{ 'is-invalid': submitted && f.username.errors }"
+              placeholder="Email or Mobile Number" maxlength="50" />
+            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+              <div *ngIf="f.username.errors.required">
+                Email Or Mobile Number is required
+              </div>
+              <div *ngIf="f.username.errors.pattern">
+                Email should be valid (or) mobile number required country
+                code ( +91 123 - 456 - 7890 )
+              </div>
+            </div>
+          </div>
+        </div>
+        <label for="password" class="pStyle m-0 mt-2">Password</label>
+        <input [type]="passwordType" type="password" (keyup)="onKey($event)" formControlName="password"
+          class="form-control borderlineLogin" [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+          placeholder="Password" maxlength="50" />
+        <ion-icon [name]="passwordIcon" class="passwordIcon" (click)="hideShowPassword()"></ion-icon>
+        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+          <div *ngIf="f.password.errors.required">Password is required</div>
+          <div *ngIf="f.password.errors.pattern">
+            Password must be strong(use caps,special char or numbers)
+          </div>
+        </div>
+
+        <div class="d-flex mt-2">
+          <div class="flex-grow-1 pl-2">
+            <div class="form-group form-check">
+              <div class="flex-grow-1 pl-2">
+                <label class="terms">
+                  <input type="checkbox" formControlName="acceptTerms" id="acceptTerms"
+                    (change)="toggleVisibility($event)" class="form-check-input" [ngClass]="{
+                      'is-invalid': submitted && f.acceptTerms.errors
+                    }" />
+                  I understand and agree with the <a [routerLink]="['/policy']" (click)="closeModal()">Privacy Policy, User Agreement
+                  And Terms of Service of Voyaah.</a></label>
+              </div>
+              <div *ngIf="submitted && f.acceptTerms.errors" class="invalid-feedback">
+                Accept Terms & Conditions is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <ion-text *ngIf="userExsist" class="user_exists">{{
+          errorMessage
+          }}</ion-text><br />
+        <ion-text *ngIf="userExsist" class="text-dark d-inlineblock mt-1 mr-2 cursor-pointer"
+          (click)="presentForgotPassword()">Forgot password?
+        </ion-text>
+        <div class="mt-2 text-right">
+          <button data-amplify-analytics-on='click' data-amplify-analytics-name='SignUpSubmit'
+          data-amplify-analytics-attrs='SignUp' class="text-white save-button-styles">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Sign Up
+          </button>
+        </div>
+      </form>
+
+      <div class="or_div text-center mt-3 mb-3" style="display: none">
+        <ion-text class="or">Or</ion-text>
+      </div>
+
+      <!-- <ion-row *ngIf="!isMobile()"> -->
+      <ion-row class="registerIcons">
+        <ion-col class="pr-1">
+          <button data-amplify-analytics-on='click'
+          data-amplify-analytics-name='SignUpWithFaceBook' data-amplify-analytics-attrs='FaceBookSignup'
+          class="fb_btn btn btn-block" (click)="onClickFacebook()">
+            Signup with Facebook
+          </button>
+        </ion-col>
+
+        <ion-col class="pl-1">
+          <button data-amplify-analytics-on='click'
+          data-amplify-analytics-name='SignUpWithGoogle' data-amplify-analytics-attrs='GoogleSignUp' class="google_btn btn btn-block" (click)="onClickGoogle()">
+            Signup with Google
+          </button>
+        </ion-col>
+      </ion-row>
+    </div>
+  </div>
+</div>
+<!-- <div *ngIf="confirmOtp">
+  <app-otp-confirm></app-otp-confirm>
+</div> -->

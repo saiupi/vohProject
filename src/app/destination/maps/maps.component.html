@@ -1,0 +1,31 @@
+
+<div class="mt-5">
+  <agm-map
+    [latitude]="lat"
+    [longitude]="lng"
+    [fullscreenControl]="true"
+    [mapTypeControl]="true"
+    [zoom]="zoom"
+  >
+    <agm-marker  *ngFor="let lan of allLocations; let i = index"
+      [latitude]="lan?.lat"
+      [longitude]="lan?.lng"
+      [label] = ""
+      [agmFitBounds]="false"
+    ></agm-marker>
+    <agm-polyline
+      *ngIf="show == 'destination'"
+      [visible]="true"
+      [strokeWeight]="3"
+      [geodesic]="true"
+      [strokeColor]="'#4C97FF'"
+    >
+      <agm-polyline-point
+        *ngFor="let coordinate of allLocations; let i = index"
+        [latitude]="coordinate?.lat"
+        [longitude]="coordinate?.lng"
+      >
+      </agm-polyline-point>
+    </agm-polyline>
+  </agm-map>
+</div>
