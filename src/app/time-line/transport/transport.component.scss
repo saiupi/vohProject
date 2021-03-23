@@ -1,0 +1,36 @@
+.act_search_bar{
+  border: 1px solid #CECECE;
+  border-radius: 36px;
+  height: 52px;
+}
+.verified_btn{
+  background-color: #265359;
+  border-radius: 36px;
+  color: white;
+  padding: 15px 27px;
+  // right: 0;
+  // top: 0;
+  // position: absolute;
+}
+.search_img{
+  height: 30px;
+  margin: 10px 0 10px 15px;
+}
+.srch::before{
+    content: "";
+    position: absolute;
+    border: 0.5px solid #707070;
+    height: 24px;
+    left: 5px;
+    width: 1px;
+    opacity: 0.5;
+}
+@media (max-width:576px){
+  .search_img{
+    height: 18px;
+    margin: 16px 0 0px 10px;
+}
+.verified_btn {
+  padding: 10px 10px;
+}
+}

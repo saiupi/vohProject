@@ -1,0 +1,10 @@
+type Itinerary @model {
+  id: ID!
+  name: String!
+  originCity: String!
+  startDate: AWSDateTime!
+  endDate: AWSDateTime!
+  AdultCount: Int!
+  ChildCount: Int
+  infantCount: Int
+}

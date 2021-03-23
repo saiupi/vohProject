@@ -1,0 +1,82 @@
+<ion-grid>
+  <ion-row>
+    <ion-col
+      size="12"
+      class="mt-3"
+      *ngFor="let i of Hotelstatus; let p = index"
+    >
+      <div class="m-0 summary_pad">
+        <ion-card class="cardstyle z-index-2 bg-white container-fluid d-block">
+          <div class="row">
+            <div class="col-3 col-sm-2 locationIcon text-center">
+              <span class="day">Day</span>
+              <h3 class="dayNum">{{ p + 1 }}</h3>
+            </div>
+            <div class="col-9 col-sm-10 pr-0 pl-2 pt-0 pb-0 position-relative">
+              <ion-row>
+                <ion-col class="card-text d-block" size="12" size-sm>
+                  {{ i.hotelData.cityName }},&nbsp;{{ i.hotelData.countryName }}
+                </ion-col>
+                <!-- <ion-col size="auto" class="m_7 font-weight-bold text-dark">
+                  09:00am
+                </ion-col> -->
+                <ion-col size="auto" class="tm_card_date m_7_3">
+                  <ion-text class="card_date">
+                    {{ i?.hotelData?.date?.start | date: 'MMM dd' }} -
+                    {{ i?.hotelData?.date?.end | date: 'MMM dd' }}
+                  </ion-text>
+                </ion-col>
+              </ion-row>
+            </div>
+          </div>
+          <div *ngIf="i.hotelData?.hotelDetails?.hotelContent?.hotelId">
+            <div
+              class="chevron_div text-dark"
+              data-toggle="collapse"
+              [attr.data-target]="'#maincollapse-' + p"
+            >
+              <ion-icon
+                name="chevron-up-outline"
+                class="main_chiv_symbol cursor-pointer"
+              ></ion-icon>
+            </div>
+          </div>
+        </ion-card>
+      </div>
+      <div>
+        <ion-grid
+          *ngIf="i.hotelData?.hotelDetails?.hotelContent?.hotelId"
+          [attr.id]="'maincollapse-' + p"
+          class="collapse show"
+          class="container-fluid pl_5_htl mt-4 position-relative"
+        >
+          <div class="htl_icn_in_crd">
+            <img src="../../../assets/images/htl_icon.svg" />
+          </div>
+          <ion-row class="mb-2 htl_row pad_10">
+            <ion-col class="col-3 p-0 ">
+              <img
+                src="{{
+                  i.hotelData?.hotelDetails?.hotelContent?.images[0]?.url
+                }}"
+                alt="image_not_found"
+                class="img_resp"
+                onerror="this.src='assets/images/hotel.png'"
+              />
+            </ion-col>
+            <ion-col class="col-9 pl-1 pr-0">
+              <ion-text class="d-block htl_nme_crd">{{
+                i.hotelData?.hotelDetails?.hotelContent?.name
+              }}</ion-text>
+              <span class="htl_adr_crd"
+                >{{ i.hotelData?.hotelDetails?.hotelContent?.address }},{{
+                  i.hotelData?.hotelDetails?.hotelContent?.city
+                }},{{ i.hotelData?.hotelDetails?.hotelContent?.country }}</span
+              >
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+    </ion-col>
+  </ion-row>
+</ion-grid>

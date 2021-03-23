@@ -1,0 +1,48 @@
+<app-sharenav></app-sharenav>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="col-12 col-sm-12 col-xs-12 col-md-12 col-lg-6 col-xl-6  leftcol-background">
+
+        <div class="navbar navbarstyle1234">
+          <a class="navbar-brand anchortag">
+            <img src="../../assets/images/Group 8012.svg" class="imgarrow ml-0" />
+            <strong class="textstyles35235"> Activities Preference</strong>
+          </a>
+          <form class="form-inline">
+            <a class="mr-sm-2 anchortag text_visible">Create your custom Trip</a>
+            <button class="btn rounded-pill bynstyles464 my-2 my-sm-0">Save & Next</button>
+          </form>
+        </div>
+        <div class="row">
+          <div class="col-12 col-sm-4 col-xs-12 col-md-4 col-lg-4 col-xl-4 p-0 card_size "
+          *ngFor="let a of activitiesPreferences; let i = index">
+          <div class="row p12">
+            <div class="p23">
+              <img src="../../assets/images/{{a.img}}" class="card_img753" />
+              <button class="cardbutton">{{a.name}}</button>
+            </div>
+          </div>
+          </div>
+        </div>
+
+      </ion-col>
+      <ion-col class="col-12 col-sm-4 col-xs-12 col-md-12 col-lg-6 col-xl-6 right_col position-relative">
+        <div class="text-center textcontent">
+          <ion-text>
+            <h6 class="textstyle2323">Pick your Interest</h6>
+          </ion-text>
+          <ion-text>
+            <h2 class="textstyle98888">Let's bon voyage</h2>
+          </ion-text>
+          <button  class="btnstyle09343">Create your custom Trip</button>
+        </div>
+
+          <img src="../../assets/images/Mask Group 24.png" class="imagesize img-fluid" />
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

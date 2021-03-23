@@ -1,0 +1,408 @@
+<ion-content class="body-background-color">
+  <ion-grid>
+    <!-- web view search card -->
+    <ion-row col="12" class="card-search">
+      <img class="img-responsive" src="../../assets/images/nature-landscape-hot-air-balloons-festival-sky.png" alt="" />
+    </ion-row>
+    <div class="container mt-3">
+      <div class="card justify-content-center card-search">
+        <form [formGroup]="registerForm">
+          <ion-grid>
+            <ion-row>
+              <ion-col size-md-6>
+                <div class="p-3 pl-4">
+                  <ion-text> Destination </ion-text>
+                  <ion-input maxlength="50" (keypress)="keyPress($event)" ngDefaultControl formControlName="destination"
+                    color="tertiary" class="borderline" type="search" placeholder="Enter Destination" #myInput
+                    [(ngModel)]="cityName" (input)="filterItem($event)">
+                  </ion-input>
+                </div>
+                <ion-card *ngIf="showCityNames" class="search_card">
+                  <ul *ngFor="let citylists of filteredItems">
+                    <li (click)="getCity(citylists.destinationName)" *ngIf="citylists || citylists.destinationName"
+                      class="pt-2 pl-3">
+                      {{ citylists.destinationName }}
+                    </li>
+                  </ul>
+                </ion-card>
+              </ion-col>
+
+              <div id="verticle-line"></div>
+              <ion-col size-md-6>
+                <div class="mt-3 pl-4 pr-4">
+                  <ion-text class="top-for-ft">From - To</ion-text>
+                  <mat-form-field appearance="fill">
+                    <mat-date-range-input [min]="minDate" [rangePicker]="picker" (click)="picker.open()">
+                      <input formControlName="startDate" readonly matStartDate placeholder="Start Date" />
+                      <input formControlName="endDate" readonly matEndDate placeholder="End Date" />
+                    </mat-date-range-input>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                  </mat-form-field>
+                </div>
+              </ion-col>
+              <div id="verticle-line"></div>
+              <ion-col size-md-6>
+                <div class="p-3 pl-4">
+                  <div class="dropdown">
+                    <div class="bg-transparent dropdown-toggle" id="dropdownMenuButton" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false" multiple="multiple">
+                      <ion-text>Filters</ion-text>
+                    </div>
+                    <div class="selectedFilter" *ngIf="selectedFilter">
+                      {{selectedFilter}}<ion-icon (click)="closeFilter()" class="closeFilter"
+                        name="close-circle-outline"></ion-icon>
+                    </div>
+                    <div (click)="sliderForm()" class="dropdown-menu more-filter mt-3"
+                      aria-labelledby="dropdownMenuButton">
+                      <ion-text class="form-check-label ckeck-label-name">
+                        Filter Price
+                      </ion-text>
+
+                      <div class="custom-slider filter-top">
+                        <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
+                          (valueChange)="valueChange(minValue, maxValue)"></ng5-slider>
+                      </div>
+                      <ion-text class="form-check-label ckeck-label-name mb-2">
+                        Tour Categories
+                      </ion-text>
+                      <ion-grid class="filter-top">
+                        <div class="row cityCheckBoxes">
+                          <div class="col-6" *ngFor="let tourList of cityTourList">
+                            <input (change)="checkboxChange(tourList.name)" class="form-check-input" type="checkbox"
+                              [value]="tourList.name" [checked]="currentlyChecked === tourList.name"
+                              (click)="selectCheckBox(tourList.name)" />
+                            <label class="form-check-label">
+                              {{ tourList.name }}</label>
+                          </div>
+                        </div>
+                      </ion-grid>
+                    </div>
+                  </div>
+                </div>
+              </ion-col>
+              <ion-col size-md-6 class="bg-color-search" (click)="onSumbit()">
+                <div class="p-3 ion-text-center mt-4">
+                  <span id="search-color"> Search</span>
+                </div>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </form>
+      </div>
+    </div>
+    <br />
+    <!-- Mobile view search card -->
+    <span class="container filter-mobile-show">
+      <span data-toggle="collapse" data-target="#moreFilter">
+        <ion-text color="tertiary"> More Filter</ion-text>
+      </span>
+      <div id="moreFilter" class="collapse" >
+        <div >
+          <ion-row col="12" class="card-search">
+            <img class="img-responsive" src="../../assets/images/nature-landscape-hot-air-balloons-festival-sky.png"
+              alt="" />
+          </ion-row>
+          <div class="container mt-10">
+            <div class="card justify-content-center">
+              <form [formGroup]="registerForm">
+                <ion-grid>
+                  <ion-row>
+                    <ion-col>
+                      <div class="p-3 ion-text-center">
+                        <ion-text color="tertiary">Destination</ion-text>
+                        <ion-input maxlength="50" ngDefaultControl (keypress)="keyPress($event)"
+                          formControlName="destination" color="tertiary" class="borderline" type="search"
+                          placeholder="Enter Destination" #myInput [(ngModel)]="cityName" (input)="filterItem($event)">
+                        </ion-input>
+                      </div>
+                      <ion-card *ngIf="showCityNames" class="search_card">
+                        <ul *ngFor="let citylists of filterpackages">
+                          <li (click)="getCity(citylists.values.cityName)"
+                            *ngIf="citylists || citylists.values.cityName" class="pt-2 pl-3">
+                            {{ citylists.values.cityName }}
+                          </li>
+                        </ul>
+                      </ion-card>
+                    </ion-col>
+                    <div id="verticle-line"></div>
+                    <ion-col>
+                      <div class="vertical-border p-3 ion-text-center" >
+                        <ion-text color="tertiary">From - To</ion-text>
+                        <mat-form-field appearance="fill">
+                          <!-- <mat-label color="tertiary">Select Travel Date</mat-label> -->
+                          <mat-date-range-input [min]="minDate" [rangePicker]="pickerTO" (click)="pickerTO.open()">
+                            <input readonly formControlName="startDate" matStartDate placeholder="Start Date" />
+                            <input readonly formControlName="endDate" matEndDate placeholder="End Date" />
+                          </mat-date-range-input>
+                          <mat-datepicker-toggle matSuffix [for]="pickerTO"></mat-datepicker-toggle>
+                          <mat-date-range-picker #pickerTO></mat-date-range-picker>
+                        </mat-form-field>
+                      </div>
+                    </ion-col>
+                    <div id="verticle-line"></div>
+                    <ion-col>
+                      <div class="p-3 ion-text-center">
+                        <div class="dropdown">
+                          <div data-toggle="collapse" data-target="#demo" class="bg-transparent dropdown-toggle"
+                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            multiple="multiple">
+                            <ion-text color="tertiary">Filters</ion-text>
+                          </div>
+                          <div (click)="sliderForm()" class="dropdown-menu more-filter mt-3"
+                            aria-labelledby="dropdownMenuButton">
+                            <ion-text class="form-check-label ckeck-label-name">
+                              Filter Price
+                            </ion-text>
+                            <div>
+                              <div class="custom-slider filter-top">
+                                <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"
+                                  (valueChange)="
+                                    valueChange(minValue, maxValue)
+                                  "></ng5-slider>
+                              </div>
+                            </div>
+
+                            <ion-text class="form-check-label ckeck-label-name mb-2">
+                              Tour Categories
+                            </ion-text>
+                            <ion-grid class="filter-top">
+                              <div class="row cityCheckBoxes">
+                                <div class="col-6" *ngFor="let tourList of cityTourList">
+                                  <!-- <input (change)="
+                                      onCheckboxChange(tourList, $event)
+                                    " class="form-check-input" type="checkbox" [value]="tourList.name" /> -->
+                                  <input (change)="checkboxChange(tourList.name)" class="form-check-input"
+                                    type="checkbox" [value]="tourList.name"
+                                    [checked]="currentlyChecked === tourList.name"
+                                    (click)="selectCheckBox(tourList.name)" />
+
+                                  <label class="form-check-label">
+                                    {{ tourList.name }}</label>
+                                </div>
+                              </div>
+                            </ion-grid>
+                          </div>
+                        </div>
+                      </div>
+                    </ion-col>
+                    <ion-col class="bg-color-search" align="center" (click)="onSumbit()">
+                      <div class="mt-4" id="search-color">Search</div>
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </span>
+    <!-- sort order -->
+    <div class="container sort-bottom">
+      <section class="dropdown sort-web-view sort-mobile-view">
+        <a class="dropdown-toggle" id="dropdownMenuButton2" data-toggle="dropdown" aria-haspopup="true"
+          aria-expanded="false">
+          <span class="sort-font-size">Sort</span>
+        </a>
+        <div class="dropdown-menu dropdown-menu-center" aria-labelledby="dropdownMenuButton2">
+          <div class="col-text-align">
+            <li (change)="sort($event)" (click)="sliderForm()">
+              <div class="form-check">
+                <ion-text>
+                  <p>Sort By</p>
+                </ion-text>
+                <ion-text class="sort-name mt-3">Price</ion-text>
+                <div class="radio">
+                  <input class="radio-inline" type="radio" value="Low" name="optradio" />&nbsp;
+                  <label class="sort-label">Low to High</label>
+
+                  <br />
+                  <input class="radio-inline" type="radio" value="High" name="optradio" />&nbsp;
+                  <label class="sort-label">High to Low</label>
+                </div>
+              </div>
+
+              <div class="form-check">
+                <ion-text class="sort-name mt-3">Name</ion-text>
+                <div class="radio">
+                  <input class="radio-inline" name="optradio" type="radio" value="az" />&nbsp;
+                  <label class="sort-label">a-z</label>
+                  <br />
+                  <input class="radio-inline" name="optradio" type="radio" value="za" />&nbsp;
+                  <label class="sort-label">z-a</label>
+                </div>
+              </div>
+            </li>
+          </div>
+        </div>
+      </section>
+      <div>
+        <hr class="hr-border-align" />
+      </div>
+      <!-- <div *ngIf="errorMessage" class="mb-2">
+        <ion-card color="tertiary">
+          <ion-card-content>
+            <div align="center">
+              <ion-text>No Packages Avaliable At &nbsp; <ion-label>{{
+                  destinationName
+                  }}</ion-label>
+              </ion-text>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div> -->
+      <div *ngIf="keyPressErrorMessage" class="mb-2">
+        <ion-card color="tertiary">
+          <ion-card-content>
+            <div align="center">
+              <ion-text>No Packages Avaliable
+              </ion-text>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+      <div *ngIf="dateErrorMessage" class="mb-2">
+        <ion-card color="tertiary">
+          <ion-card-content>
+            <div align="center">
+              <ion-text>Package Not Available This Date
+                &#8220;<ion-label>{{startDateMessage | date: 'dd/MM/yyyy'}}&nbsp;To&nbsp;{{endDateMessage | date: 'dd/MM/yyyy'}}</ion-label>&#8221;
+              </ion-text>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+      <div *ngIf="errorMessageRange" class="mb-2">
+        <ion-card color="tertiary">
+          <ion-card-content>
+            <div align="center">
+              <ion-text>Package Not Available This Range &nbsp; "<ion-label>
+                  {{minValueRage | currency:"₹ " : false : '2.0-0'}} &nbsp;To&nbsp; {{maxValueRage | currency:"₹ " :
+                  false : '2.0-0'}}
+                </ion-label>"
+              </ion-text>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+      <section>
+        <ion-row col="12">
+          <ion-grid>
+            <div class="container">
+              <div class="row ">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-3 col-xl-3 p-1 d-flex align-items-stretch" *ngFor="
+                    let a of packages
+                      | paginate
+                        : {
+                            itemsPerPage: 8,
+                            currentPage: p,
+                            id: 'staycation'
+                          };
+                    let i = index
+                  ">
+                  <div class="card" (click)="UserDetails(a.packageReference)">
+                    <span class="zoom-image">
+                      <img src="{{ a.packageValues.mainImage }}" class="text-center image_size" alt="..." />
+                    </span>
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <img class="img-rounded" src="../../../../assets/images/Group 65824.svg" />&nbsp;
+                        <span class="opcity-stateName">{{ a.packageValues.cityName }},
+                          {{ a.packageValues.countryName }}</span>
+                      </h5>
+                      <div class="clsName">
+                        {{ a.packageValues.name }}
+                      </div>
+                      <div class="my-2">
+                        <span class="tourName">
+                          <img class="img-rounded tourName" src="../assets/images/time (1).svg" />&nbsp;
+                          {{ a.packageValues.numberOfDays }} Days &
+                          {{
+                          a.packageValues.numberOfNights }} Nights</span>&nbsp;&nbsp;
+                        <span class="font-weight-bold float-right color-fare">
+                          {{ a.packageValues.fare.totalFare| currency:"₹ " : false : '2.0-0' }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <br />
+              <div class="row">
+                <pagination-controls class="mx-auto pagination my-pagination" (pageChange)="p = $event" id="staycation"
+                  directionLinks="false" responsive="false"></pagination-controls>
+              </div>
+            </div>
+          </ion-grid>
+        </ion-row>
+      </section>
+    </div>
+  </ion-grid>
+  <br /><br />
+
+
+
+  <!-- footer code starts -->
+
+  <ion-footer class="ion-no-border border-none footer-background-color">
+    <ion-card class="ion-card-footer footer-background-color">
+      <ion-grid>
+        <ul class="nav justify-content-center footer-text-styles mt-4 mb-2 dispaly-mobile">
+          <li class="nav-item">
+            <a class="nav-link footer-text-styles" [routerLink]="['/about-us']">About Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link footer-text-styles" [routerLink]="['/staycation']">Staycations</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link footer-text-styles" style="cursor: pointer;" (click)="goToContact()">Contact Us</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link footer-text-styles" [routerLink]="['/staycation']">Tailor Trips</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link footer-text-styles" href="#">Blogs</a>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link footer-text-styles" [routerLink]="['/policy']">Policies</a>
+          </li>
+        </ul>
+        <ul class="nav justify-content-center mt-2 ">
+          <li class="nav-item">
+            <a class="nav-link footer-icon-styles twitter-icon" target="_blank" href="https://twitter.com/voyaah1/">
+              <ion-icon class="p-0 m-0" name="logo-twitter"></ion-icon>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link footer-icon-styles facebook-icon" target="_blank"
+              href="https://www.facebook.com/voyaahcations/">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link footer-icon-styles linkedin-icon" target="_blank"
+              href="https://www.linkedin.com/company/voyaah/">
+              <ion-icon name="logo-linkedin"></ion-icon>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link footer-icon-styles instagram-icon" target="_blank"
+              href="https://www.instagram.com/voyaah_cations/">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+        </ul>
+        <hr width="100%" class="hr-styles dispaly-mobile" noshade />
+        <div class="pt-3 poweredby text-center pb-3 dispaly-mobile">
+          <p>
+            &#169; Copyright 2021-2020. All Rights Reserved. Powered by
+            <span class="ml-1 company"><a href="https://ojas-it.com/" target="_blank">
+                OJAS Innovative Technologies Pvt Ltd</a></span>
+          </p>
+        </div>
+      </ion-grid>
+    </ion-card>
+  </ion-footer>
+  <!-- footer code ends -->
+
+</ion-content>

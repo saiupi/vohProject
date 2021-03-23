@@ -1,0 +1,152 @@
+
+.leftcol-background{
+  background-color: #FBFAF8;
+  margin-top: 3.4rem;
+  .navbarstyle1234{
+    font-size: .94rem;
+    .anchortag{
+        text-decoration: none;
+        color: #B7B7B7;
+      .textstyles35235 {
+          color: #265359;
+          font-size: .94rem;
+          letter-spacing: 0px;
+      }
+    }
+
+    .imgarrow {
+      height: 1.6rem;
+      width: 1.6rem;
+      margin-right: .6rem;
+    }
+
+    .bynstyles464{
+      color:#ffffff;
+      font-size: small;
+      background: var(--unnamed-color-265359) 0% 0% no-repeat padding-box;
+      background: #265359 0% 0% no-repeat padding-box;
+      border-radius: 24px;
+    }
+  }
+
+
+  // cards and images
+
+  .card_size{
+      .p12{
+        margin: .6rem;
+      }
+      .p23{
+        position: relative;
+        background-color:#ffffff;
+        // margin: .6rem;
+        height: 197px;
+        .card_img753{
+          height: 100%;
+          width: 100%;
+        }
+      .cardbutton{
+        position: absolute;
+        min-width: 5rem;
+        padding-top: 8px;
+        padding-bottom: 4px;
+        padding-left: 18px;
+        padding-right: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 0px;
+        background-color: #B7B7B7;
+        border-radius: 20px 20px 0px 0px;
+        color: #ffffff;
+      }
+      .cardbutton:focus{
+        background-color: #265359;
+        outline: none;
+        outline: none;
+      }
+      .cardbutton:active{
+        background-color: #265359;
+        outline: none;
+        outline: none;
+      }
+      }
+    }
+  }
+
+
+
+
+
+
+
+
+
+.right_col{
+  height:100vh;
+
+
+  .textcontent{
+    margin-top: 8rem;
+    .textstyle2323{
+      letter-spacing: 0px;
+      color: #000000;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+    .textstyle98888{
+      letter-spacing: 0px;
+      color: #265359;
+      font-size: 1.8rem;
+    }
+    .btnstyle09343{
+      background: #265359 0% 0% no-repeat padding-box;
+      border-radius: 20px;
+      color: #EFE3E3;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+    .imagesize{
+      position: absolute;
+      // width: 488px;
+      height: 368px;
+      bottom: 0rem;
+      right: 0px;
+    }
+}
+
+
+
+
+@media (min-width: 321px) and (max-width: 575px) {
+
+  .p23{
+    width: 300px !important;
+    margin: auto ;
+  }
+
+}
+
+
+@media (min-width: 0px) and (max-width: 575px) {
+  .text_visible {
+    display: none;
+  }
+}
+
+
+// @media (min-width: 1450px) and (max-width: 2560px) {
+
+//   .p23{
+//     height: 432px !important;
+//     width: 372px !important
+//   }
+
+// }
+
+
+
+
+

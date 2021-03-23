@@ -1,0 +1,17 @@
+@media (max-width: 900px) {
+  .mapPart {
+    display: none;
+  }
+}
+
+.destionation-height {
+  height: calc(100vh) !important;
+  background-color: #fbfaf8;
+  overflow: auto;
+  // margin-top: 47px;
+}
+
+.mapPart {
+  height: calc(100vh) !important;
+  background-color: #ffffff;
+}

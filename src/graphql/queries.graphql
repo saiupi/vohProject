@@ -1,0 +1,840 @@
+# this is an auto generated file. This will be overwritten
+query GetVyCurrentItineraryModel($id: ID!) {
+  getVYCurrentItineraryModel(id: $id) {
+    id
+    username
+    itineraryName
+    currentItinerary {
+      itineraryName
+      startDate
+      endDate
+      originCity {
+        id
+        airportCode
+        airportName
+        cityName
+        countryCode
+        countryName
+        vendorName
+        latitude
+        longitude
+      }
+      destinationCities {
+        id
+        airportCode
+        airportName
+        cityName
+        countryCode
+        countryName
+        vendorName
+        latitude
+        longitude
+      }
+      travelType
+      travellers {
+        adultCount
+        childCount
+        infantCount
+      }
+      packageId
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query ListVyCurrentItineraryModels(
+  $filter: ModelVYCurrentItineraryModelFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listVYCurrentItineraryModels(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      username
+      itineraryName
+      currentItinerary {
+        itineraryName
+        startDate
+        endDate
+        originCity {
+          id
+          airportCode
+          airportName
+          cityName
+          countryCode
+          countryName
+          vendorName
+          latitude
+          longitude
+        }
+        destinationCities {
+          id
+          airportCode
+          airportName
+          cityName
+          countryCode
+          countryName
+          vendorName
+          latitude
+          longitude
+        }
+        travelType
+        travellers {
+          adultCount
+          childCount
+          infantCount
+        }
+        packageId
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}
+query GetVyUserProfileModel($id: ID!) {
+  getVYUserProfileModel(id: $id) {
+    id
+    username
+    userProfile {
+      id
+      firstName
+      middleName
+      lastName
+      relationshipToUser
+      dateOfBirth
+      gender
+      maritalStatus
+      mobileNo
+      isMobileVerified
+      email
+      isEmailVerified
+      idDetails {
+        idType
+        idNumber
+        issuedOn
+        expiryDate
+        countryName
+        cityName
+      }
+      address
+      cityName
+      countryName
+      zipCode
+    }
+    familyProfile {
+      id
+      firstName
+      middleName
+      lastName
+      relationshipToUser
+      dateOfBirth
+      gender
+      maritalStatus
+      mobileNo
+      isMobileVerified
+      email
+      isEmailVerified
+      idDetails {
+        idType
+        idNumber
+        issuedOn
+        expiryDate
+        countryName
+        cityName
+      }
+      address
+      cityName
+      countryName
+      zipCode
+    }
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query ListVyUserProfileModels(
+  $filter: ModelVYUserProfileModelFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listVYUserProfileModels(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      username
+      userProfile {
+        id
+        firstName
+        middleName
+        lastName
+        relationshipToUser
+        dateOfBirth
+        gender
+        maritalStatus
+        mobileNo
+        isMobileVerified
+        email
+        isEmailVerified
+        idDetails {
+          idType
+          idNumber
+          issuedOn
+          expiryDate
+          countryName
+          cityName
+        }
+        address
+        cityName
+        countryName
+        zipCode
+      }
+      familyProfile {
+        id
+        firstName
+        middleName
+        lastName
+        relationshipToUser
+        dateOfBirth
+        gender
+        maritalStatus
+        mobileNo
+        isMobileVerified
+        email
+        isEmailVerified
+        idDetails {
+          idType
+          idNumber
+          issuedOn
+          expiryDate
+          countryName
+          cityName
+        }
+        address
+        cityName
+        countryName
+        zipCode
+      }
+      createdAt
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}
+query GetVyTravelPackage($id: ID!) {
+  getVYTravelPackage(id: $id) {
+    id
+    packagename
+    packageStatus
+    packageReference
+    packageValues
+    availableFrom
+    availableUpTo
+    packageOwners
+    groupsCanAccess
+    createdAt
+    updatedAt
+  }
+}
+query ListVyTravelPackages(
+  $filter: ModelVYTravelPackageFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listVYTravelPackages(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      packagename
+      packageStatus
+      packageReference
+      packageValues
+      availableFrom
+      availableUpTo
+      packageOwners
+      groupsCanAccess
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetVyTrawexSettingsModel($id: ID!) {
+  getVYTrawexSettingsModel(id: $id) {
+    id
+    flights {
+      defaultMargin {
+        percentValue
+        minimumFee
+      }
+      byAirline {
+        exclusionName
+        exclusionCode
+        exclusionMargin {
+          percentValue
+          minimumFee
+        }
+      }
+      byDestination {
+        exclusionName
+        exclusionCode
+        exclusionMargin {
+          percentValue
+          minimumFee
+        }
+      }
+      cancelPolicy {
+        minimumFee
+        adminFee
+        cancelRules {
+          refundPercent
+          graceDays
+        }
+      }
+    }
+    hotels {
+      defaultMargin {
+        percentValue
+        minimumFee
+      }
+      byHotelChain {
+        exclusionName
+        exclusionCode
+        exclusionMargin {
+          percentValue
+          minimumFee
+        }
+      }
+      cancelPolicy {
+        minimumFee
+        adminFee
+        cancelRules {
+          refundPercent
+          graceDays
+        }
+      }
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListVyTrawexSettingsModels(
+  $filter: ModelVYTrawexSettingsModelFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listVYTrawexSettingsModels(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      flights {
+        defaultMargin {
+          percentValue
+          minimumFee
+        }
+        byAirline {
+          exclusionName
+          exclusionCode
+        }
+        byDestination {
+          exclusionName
+          exclusionCode
+        }
+        cancelPolicy {
+          minimumFee
+          adminFee
+        }
+      }
+      hotels {
+        defaultMargin {
+          percentValue
+          minimumFee
+        }
+        byHotelChain {
+          exclusionName
+          exclusionCode
+        }
+        cancelPolicy {
+          minimumFee
+          adminFee
+        }
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetVyMusementSettingsModel($id: ID!) {
+  getVYMusementSettingsModel(id: $id) {
+    id
+    activities {
+      defaultMargin {
+        percentValue
+        minimumFee
+      }
+      byActivity {
+        exclusionName
+        exclusionCode
+        exclusionMargin {
+          percentValue
+          minimumFee
+        }
+      }
+      cancelPolicy {
+        minimumFee
+        adminFee
+        cancelRules {
+          refundPercent
+          graceDays
+        }
+      }
+    }
+    createdAt
+    updatedAt
+  }
+}
+query ListVyMusementSettingsModels(
+  $filter: ModelVYMusementSettingsModelFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listVYMusementSettingsModels(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      activities {
+        defaultMargin {
+          percentValue
+          minimumFee
+        }
+        byActivity {
+          exclusionName
+          exclusionCode
+        }
+        cancelPolicy {
+          minimumFee
+          adminFee
+        }
+      }
+      createdAt
+      updatedAt
+    }
+    nextToken
+  }
+}
+query GetVyPackageInventoryModel(
+  $packageId: String!
+  $inventoryDate: AWSDateTime!
+  $roomType: String!
+) {
+  getVYPackageInventoryModel(
+    packageId: $packageId
+    inventoryDate: $inventoryDate
+    roomType: $roomType
+  ) {
+    packageId
+    inventoryDate
+    roomType
+    totalRooms
+    availableRooms
+    bookedRooms
+    inventoryStatus
+    fareInfo
+    groupsCanAccess
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query ListVyPackageInventoryModels(
+  $packageId: String
+  $inventoryDateRoomType: ModelVYPackageInventoryModelPrimaryCompositeKeyConditionInput
+  $filter: ModelVYPackageInventoryModelFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listVYPackageInventoryModels(
+    packageId: $packageId
+    inventoryDateRoomType: $inventoryDateRoomType
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      packageId
+      inventoryDate
+      roomType
+      totalRooms
+      availableRooms
+      bookedRooms
+      inventoryStatus
+      fareInfo
+      groupsCanAccess
+      createdAt
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}
+query GetVyStaycationInventoryModel($id: ID!) {
+  getVYStaycationInventoryModel(id: $id) {
+    id
+    packageId
+    inventoryDate
+    roomType
+    totalRooms
+    availableRooms
+    bookedRooms
+    inventoryStatus
+    roomId
+    packageReference
+    fareInfo
+    extraData
+    groupsCanAccess
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query ListVyStaycationInventoryModels(
+  $filter: ModelVYStaycationInventoryModelFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listVYStaycationInventoryModels(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      packageId
+      inventoryDate
+      roomType
+      totalRooms
+      availableRooms
+      bookedRooms
+      inventoryStatus
+      roomId
+      packageReference
+      fareInfo
+      extraData
+      groupsCanAccess
+      createdAt
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}
+query GetVyCouponBatches($vendorId: ID!, $createdAt: AWSDateTime!) {
+  getVYCouponBatches(vendorId: $vendorId, createdAt: $createdAt) {
+    vendorId
+    createdAt
+    batchId
+    batchName
+    batchCode
+    packageId
+    couponCount
+    groupsCanAccess
+    updatedAt
+    owner
+  }
+}
+query ListVyCouponBatchess(
+  $vendorId: ID
+  $createdAt: ModelStringKeyConditionInput
+  $filter: ModelVYCouponBatchesFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listVYCouponBatchess(
+    vendorId: $vendorId
+    createdAt: $createdAt
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      vendorId
+      createdAt
+      batchId
+      batchName
+      batchCode
+      packageId
+      couponCount
+      groupsCanAccess
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}
+query ItemsByPackageId(
+  $vendorId: ID
+  $packageId: ModelIDKeyConditionInput
+  $sortDirection: ModelSortDirection
+  $filter: ModelVYCouponBatchesFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  ItemsByPackageId(
+    vendorId: $vendorId
+    packageId: $packageId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      vendorId
+      createdAt
+      batchId
+      batchName
+      batchCode
+      packageId
+      couponCount
+      groupsCanAccess
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}
+query GetVyVendorsModel($id: ID!) {
+  getVYVendorsModel(id: $id) {
+    id
+    vendorName
+    vendorCode
+    contactPhone
+    email
+    vendorStatus
+    vendorData
+    contactAddress
+    conginitoName
+    cognitoUserId
+    congnitoSecret
+    groupsCanAccess
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query ListVyVendorsModels(
+  $filter: ModelVYVendorsModelFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listVYVendorsModels(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      vendorName
+      vendorCode
+      contactPhone
+      email
+      vendorStatus
+      vendorData
+      contactAddress
+      conginitoName
+      cognitoUserId
+      congnitoSecret
+      groupsCanAccess
+      createdAt
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}
+query GetVyCouponCodesModel($batchCode: String!, $couponCode: String!) {
+  getVYCouponCodesModel(batchCode: $batchCode, couponCode: $couponCode) {
+    couponCode
+    batchCode
+    batchId
+    packageId
+    vendorId
+    validFrom
+    validUpto
+    couponStatus
+    discountType
+    discountPercent
+    discountFixedValue
+    groupsCanAccess
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query ListVyCouponCodesModels(
+  $batchCode: String
+  $couponCode: ModelStringKeyConditionInput
+  $filter: ModelVYCouponCodesModelFilterInput
+  $limit: Int
+  $nextToken: String
+  $sortDirection: ModelSortDirection
+) {
+  listVYCouponCodesModels(
+    batchCode: $batchCode
+    couponCode: $couponCode
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+    sortDirection: $sortDirection
+  ) {
+    items {
+      couponCode
+      batchCode
+      batchId
+      packageId
+      vendorId
+      validFrom
+      validUpto
+      couponStatus
+      discountType
+      discountPercent
+      discountFixedValue
+      groupsCanAccess
+      createdAt
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}
+query GetVyCustomBookingModel($id: ID!) {
+  getVYCustomBookingModel(id: $id) {
+    id
+    username
+    itineraryName
+    bookingType
+    bookingStatus
+    bookingDetails
+    travelStartDate
+    travelCity
+    email
+    mobileNo
+    bookingDecription
+    bookingReference
+    paymentDetails
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query ListVyCustomBookingModels(
+  $filter: ModelVYCustomBookingModelFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listVYCustomBookingModels(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      username
+      itineraryName
+      bookingType
+      bookingStatus
+      bookingDetails
+      travelStartDate
+      travelCity
+      email
+      mobileNo
+      bookingDecription
+      bookingReference
+      paymentDetails
+      createdAt
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}
+query GetVyStaycationBookingModel($id: ID!) {
+  getVYStaycationBookingModel(id: $id) {
+    id
+    username
+    itineraryName
+    bookingType
+    bookingStatus
+    travelStartDate
+    bookingDetails
+    vendorId
+    packageId
+    bookingReference
+    email
+    mobileNo
+    couponCode
+    roomType
+    basePackagePrice
+    discountedPrice
+    discountedValue
+    paymentDetails
+    canceledDate
+    refundAmount
+    createdAt
+    updatedAt
+    owner
+  }
+}
+query ListVyStaycationBookingModels(
+  $filter: ModelVYStaycationBookingModelFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listVYStaycationBookingModels(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      username
+      itineraryName
+      bookingType
+      bookingStatus
+      travelStartDate
+      bookingDetails
+      vendorId
+      packageId
+      bookingReference
+      email
+      mobileNo
+      couponCode
+      roomType
+      basePackagePrice
+      discountedPrice
+      discountedValue
+      paymentDetails
+      canceledDate
+      refundAmount
+      createdAt
+      updatedAt
+      owner
+    }
+    nextToken
+  }
+}
