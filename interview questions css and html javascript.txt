@@ -1,0 +1,315 @@
+ hi 
+
+tell me about your self 
+
+
+
+
+Htmls5
+
+
+--------------------------------------------------
+
+
+
+
+3.What is the difference between a block-level element and an inline element?
+
+5.How to create a Hyperlink in HTML?
+
+7.What is semantic Tags in HTML?
+
+12.What is the difference between DIV and SPAN in HTML?
+
+8)Media Tags?
+
+14.Is the <!DOCTYPE html> tag considered as a HTML tag?
+
+15.What is the use of an iframe tag?
+
+16.Differences b/w HTML/HTML5
+
+28.What is the SVG element?
+HTML tag is used to display the data in the tabular form
+
+
+
+css 3
+------------------------------------------------------------
+
+
+4.What is a CSS selector?
+6)what is media quries?
+
+5.What is pseudo-elements vs psudo pseudo-class?
+
+6.What is the difference between class selectors and id selectors?
+
+7.What are the advantages of External Style Sheets?
+
+
+10.What is the CSS Box model and what are its elements?
+
+11.What is the float property of CSS?
+
+12.What is the purpose of the z-index and how is it used?
+
+13.Explain the difference between visibility: hidden and display: none?
+
+
+15.What are the advantages of using CSS & What are the disadvantages of using CSS?
+
+16.What are the different units used in CSS?
+
+17.What is the overflow property in CSS used for?
+
+18.What is the property that is used for controlling image-scroll
+
+19.What are the various font-related attributes in CSS?
+
+20.What is CSS flexbox?
+
+21.What’s the difference between a relative, fixed, absolute and statically positioned element?
+
+24.Explain about breakpoints?
+
+25.Define ‘important’ declarations used in CSS.
+
+26.What is css grid?
+
+27.How many ways to align center div
+
+28.Explain about Image sprite?
+
+29.What is word-wrapping in CSS3?
+
+30.How to add '..." for sentance?
+
+
+Bootstrap 
+--------------------------------------------------------------------
+1
+ What is Bootstrap Grid System
+ 
+2 Explain types of lists supported by Bootstrap.
+
+3 padding
+
+4 margin
+
+5HTML tag is used to display the data in the tabular form
+
+How we can create a navbar in Bootstrap
+
+
+javascript
+
+----------------------------------------------------
+1.Mutable vs Immutable
+
+3.== vs ===
+
+4.null vs undefined
+
+5.NaN
+
+6.call by value ,call by reference
+
+7.call,apply,bind
+
+8.closures
+
+9.callback
+
+10.object types
+
+11.arrow functions
+
+12.var,let,const
+
+13.what is DOM,BOM
+
+16.function declaration vs function expression
+
+17.Eventloop
+
+18.string methods
+
+19.array methods
+
+20.Spread operators,Rest operators
+
+21.promises
+
+22.scope
+
+23.typeof operator
+
+24.cookie,local storage,session storage
+
+25.prototype
+
+26.event capturing vs event bubbling
+
+27.Ways to remove duplicates from array
+
+28.jit compailer
+
+29.unknown vs any
+
+30.innnerHTML vs interText
+
+31.undeclared vs undefined
+
+32.window vs document
+
+33.import,export ,require
+
+34.what is strictmode in js and how can it be enabled
+
+40.syncronus vs asyncronus
+
+41.create html elements using Js
+
+42.this keyword
+
+43.What is the difference between ViewState and SessionState
+
+
+45.What is the use of blur function,focus function,all events?
+
+46.different types of errors in JavaScript?
+
+47.Explain window.onload and onDocumentReady?
+
+48.for-in loop, for-of-loop,for ,forEach
+
+49.what is anonymous function in JavaScript?
+
+51.What are Screen objects?
+
+
+53.What's the difference between event.preventDefault() and event.stopPropagation() methods?
+
+54.web-workers and service-workers.
+
+55.Web socket,
+
+56.transpiler
+
+57.Es6 features and Es5
+
+58.Type Casting
+
+59.Higher order functionf
+
+60.Asyn vs await
+
+
+64.for-in loop, for-of-loop,for ,forEach
+
+66.setTimeout ,set timeInterval
+
+
+
+
+
+
+Angular interview
+------------------------------------------------------
+
+1.Differentiate between Angular and AngularJS
+
+9.What are directives in Angular?
+
+10.What is data binding?
+
+11.What is the purpose of a filter in Angular?
+
+12.What is a provider in Angular?
+
+19.What are the Angular Modules?
+
+20.What are the different types of filters in Angular?
+
+22.What is Dependency Injection in Angular?
+
+23.Differentiate between one-way binding and two-way data binding.
+
+24.What do you understand by dirty checking in Angular?
+
+25.What is Transpiling in Angular?
+
+28.What are events in Angular?
+
+30.How to create a service in Angular?
+
+33.What is bootstrapping in Angular?
+
+34.What is the difference between a link and compile in Angular?
+
+35.What do you understand by constants in Angular?
+
+36.Explain available forms and form elements in angular?
+
+37.What are Angular Global APIs?
+
+38.In Angular, describe how will you set, get and clear cookies?
+
+39.If your data model is updated outside the ‘Zone’, explain the process how will you the view?
+
+
+42.Explain Angular Authentication and Authorization.
+
+43.What are the building blocks of Angular?
+
+44.What is interface
+
+45.Anglar6 vs Angular7 vs Angular8 vs Angular9
+
+46.Explain different ways of Component to componet comunication?
+
+47.What is view encapsulation?
+
+48.what is viewChild?
+
+49.Subject vs Bahaviour Subject?
+
+50.what is can activate?
+
+51.What is Pure and Impure Pipes?
+
+52.What is Redux and @ngRx?
+
+53.How to optimize Angular app?
+
+54.What is lazy Loading
+
+55.What is Routing in Angular?
+
+56.What is RouterOutlet?
+
+57.What is package.json vs angular.json
+
+58.Is angular prevents http level vulnerabilities?
+
+59.Differentiate between Observables and Promises.
+
+60.What is an AsyncPipe in Angular?
+
+61.Differentiate between ng-Class and ng-Style.
+
+62.what is Interceptors?
+
+63.what is authguards?
+
+65.What are the differences between Component and Directive?
+
+67.What is metadata?
+
+68.What is the difference between constructor and ngOnInit?
+
+75.What is RxJS?
+
+76.What is an observer?
+
